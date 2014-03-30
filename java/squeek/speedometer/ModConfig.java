@@ -1,0 +1,114 @@
+package squeek.mods.speedometer;
+
+import java.io.File;
+
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.Property;
+
+public class ModConfig {
+	
+	private static final String CATEGORY_SPEEDOMETER = "speedometer";
+	
+	public static Property SPEEDOMETER_ALIGNMENT_X;
+	private static final String SPEEDOMETER_ALIGNMENT_X_NAME = "xAlign";
+	public static final String SPEEDOMETER_ALIGNMENT_X_DEFAULT = "left";
+
+	public static Property SPEEDOMETER_ALIGNMENT_Y;
+	private static final String SPEEDOMETER_ALIGNMENT_Y_NAME = "yAlign";
+	public static final String SPEEDOMETER_ALIGNMENT_Y_DEFAULT = "bottom";
+
+	public static Property SPEEDOMETER_XPOS;
+	private static final String SPEEDOMETER_XPOS_NAME = "xPos";
+	public static final int SPEEDOMETER_XPOS_DEFAULT = 0;
+	
+	public static Property SPEEDOMETER_YPOS;
+	private static final String SPEEDOMETER_YPOS_NAME = "yPos";
+	public static final int SPEEDOMETER_YPOS_DEFAULT = 0;
+
+	public static Property SPEEDOMETER_PADDING;
+	private static final String SPEEDOMETER_PADDING_NAME = "padding";
+	public static final int SPEEDOMETER_PADDING_DEFAULT = 2;
+
+	public static Property SPEEDOMETER_MARGIN;
+	private static final String SPEEDOMETER_MARGIN_NAME = "margin";
+	public static final int SPEEDOMETER_MARGIN_DEFAULT = 4;
+	
+	public static Property SPEEDOMETER_DRAW_BACKGROUND;
+	private static final String SPEEDOMETER_DRAW_BACKGROUND_NAME = "drawBackground";
+	public static final boolean SPEEDOMETER_DRAW_BACKGROUND_DEFAULT = true;
+
+	public static Property LAST_JUMP_INFO_ENABLED;
+	private static final String LAST_JUMP_INFO_ENABLED_NAME = "lastJumpInfoEnabled";
+	public static final boolean LAST_JUMP_INFO_ENABLED_DEFAULT = true;
+	
+	public static Property LAST_JUMP_INFO_FLOAT_ENABLED;
+	private static final String LAST_JUMP_INFO_FLOAT_ENABLED_NAME = "lastJumpInfoTextFloatEnabled";
+	public static final boolean LAST_JUMP_INFO_FLOAT_ENABLED_DEFAULT = false;
+	
+	public static Property LAST_JUMP_INFO_DURATION;
+	private static final String LAST_JUMP_INFO_DURATION_NAME = "lastJumpInfoDuration";
+	public static final double LAST_JUMP_INFO_DURATION_DEFAULT = 3.0F;
+
+	private static Property SPEED_UNIT_PROPERTY;
+	public static SpeedUnit SPEED_UNIT;
+	private static final String SPEED_UNIT_NAME = "speedUnit";
+	public static final String SPEED_UNIT_DEFAULT = "bps";
+
+	private static Configuration config;
+	
+	public static void init( File file )
+	{
+		config = new Configuration( file );
+		
+		load();
+		
+		save();
+	}
+
+	public static void save()
+	{
+		if (config.hasChanged())
+			config.save();
+	}
+
+	public static void load()
+	{
+		config.load();
+
+		SPEEDOMETER_ALIGNMENT_X = config.get(CATEGORY_SPEEDOMETER, SPEEDOMETER_ALIGNMENT_X_NAME, SPEEDOMETER_ALIGNMENT_X_DEFAULT);
+		SPEEDOMETER_ALIGNMENT_Y = config.get(CATEGORY_SPEEDOMETER, SPEEDOMETER_ALIGNMENT_Y_NAME, SPEEDOMETER_ALIGNMENT_Y_DEFAULT);
+		
+		SPEEDOMETER_XPOS = config.get(CATEGORY_SPEEDOMETER, SPEEDOMETER_XPOS_NAME, SPEEDOMETER_XPOS_DEFAULT);
+		SPEEDOMETER_YPOS = config.get(CATEGORY_SPEEDOMETER, SPEEDOMETER_YPOS_NAME, SPEEDOMETER_YPOS_DEFAULT);
+
+		SPEEDOMETER_PADDING = config.get(CATEGORY_SPEEDOMETER, SPEEDOMETER_PADDING_NAME, SPEEDOMETER_PADDING_DEFAULT);
+		SPEEDOMETER_MARGIN = config.get(CATEGORY_SPEEDOMETER, SPEEDOMETER_MARGIN_NAME, SPEEDOMETER_MARGIN_DEFAULT);
+		
+		SPEEDOMETER_DRAW_BACKGROUND = config.get(CATEGORY_SPEEDOMETER, SPEEDOMETER_DRAW_BACKGROUND_NAME, SPEEDOMETER_DRAW_BACKGROUND_DEFAULT);
+
+		LAST_JUMP_INFO_ENABLED = config.get(CATEGORY_SPEEDOMETER, LAST_JUMP_INFO_ENABLED_NAME, LAST_JUMP_INFO_ENABLED_DEFAULT);
+		LAST_JUMP_INFO_FLOAT_ENABLED = config.get(CATEGORY_SPEEDOMETER, LAST_JUMP_INFO_FLOAT_ENABLED_NAME, LAST_JUMP_INFO_FLOAT_ENABLED_DEFAULT);
+		LAST_JUMP_INFO_DURATION = config.get(CATEGORY_SPEEDOMETER, LAST_JUMP_INFO_DURATION_NAME, LAST_JUMP_INFO_DURATION_DEFAULT);
+
+		String speedUnitId = config.get(CATEGORY_SPEEDOMETER, SPEED_UNIT_NAME, SPEED_UNIT_DEFAULT, "valid units: bpt (blocks/tick), bps (blocks/sec), mps (meters/sec), kmh  (km/hour), mph (miles/hour)").getString();
+		setSpeedUnit( speedUnitId );
+	}
+	
+	public static void setSpeedUnit( String speedUnitId )
+	{
+		SpeedUnit[] units = SpeedUnit.getUnits();
+		boolean found = false;
+		for (int i=0; i<units.length; i++)
+		{
+			String id = units[i].getId();
+			if (speedUnitId.equals(id))
+			{
+				found = true;
+				SPEED_UNIT = units[i];
+				break;
+			}
+		}
+		if (!found)
+			SPEED_UNIT = SpeedUnit.BLOCKSPERSECOND;
+	}
+}

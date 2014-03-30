@@ -1,0 +1,16 @@
+[
+{
+  "modid": "sq_Speedometer",
+  "name": "Speedometer",
+  "description": "A speedometer.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authors": ["squeek"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
