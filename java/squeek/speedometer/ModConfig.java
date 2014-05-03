@@ -1,4 +1,4 @@
-package squeek.mods.speedometer;
+package squeek.speedometer;
 
 import java.io.File;
 
@@ -90,7 +90,8 @@ public class ModConfig {
 		LAST_JUMP_INFO_FLOAT_ENABLED = config.get(CATEGORY_SPEEDOMETER, LAST_JUMP_INFO_FLOAT_ENABLED_NAME, LAST_JUMP_INFO_FLOAT_ENABLED_DEFAULT);
 		LAST_JUMP_INFO_DURATION = config.get(CATEGORY_SPEEDOMETER, LAST_JUMP_INFO_DURATION_NAME, LAST_JUMP_INFO_DURATION_DEFAULT);
 
-		String speedUnitId = config.get(CATEGORY_SPEEDOMETER, SPEED_UNIT_NAME, SPEED_UNIT_DEFAULT, "valid units: bpt (blocks/tick), bps (blocks/sec), mps (meters/sec), kmh  (km/hour), mph (miles/hour)").getString();
+		SPEED_UNIT_PROPERTY = config.get(CATEGORY_SPEEDOMETER, SPEED_UNIT_NAME, SPEED_UNIT_DEFAULT, "valid units: bpt (blocks/tick), bps (blocks/sec), mps (meters/sec), kmh  (km/hour), mph (miles/hour)");
+		String speedUnitId = SPEED_UNIT_PROPERTY.getString();
 		setSpeedUnit( speedUnitId );
 	}
 	
@@ -110,5 +111,7 @@ public class ModConfig {
 		}
 		if (!found)
 			SPEED_UNIT = SpeedUnit.BLOCKSPERSECOND;
+		
+		SPEED_UNIT_PROPERTY.set(SPEED_UNIT.getId());
 	}
 }

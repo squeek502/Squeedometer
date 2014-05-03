@@ -1,4 +1,4 @@
-package squeek.mods.speedometer;
+package squeek.speedometer;
 
 import java.util.ArrayList;
 

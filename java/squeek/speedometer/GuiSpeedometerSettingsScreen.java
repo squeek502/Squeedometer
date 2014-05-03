@@ -1,4 +1,4 @@
-package squeek.mods.speedometer;
+package squeek.speedometer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +20,9 @@ public class GuiSpeedometerSettingsScreen extends GuiScreen {
     private GuiTextField yPosField;
     private GuiTextField paddingField;
     private GuiTextField marginField;
-    private GuiTextField alignXField;
-    private GuiTextField alignYField;
-    private GuiTextField unitsField;
+    //private GuiTextField alignXField;
+    //private GuiTextField alignYField;
+    //private GuiTextField unitsField;
     
     private final static int padding = 4;
     private final static int colMargin = 8;
@@ -32,7 +32,7 @@ public class GuiSpeedometerSettingsScreen extends GuiScreen {
     private final static int buttonHeight = 20;
     private final static int buttonWidth = 50;
 
-    protected List labelList = new ArrayList();
+    protected List<Gui> labelList = new ArrayList<Gui>();
     
     class Background extends Gui
     {
@@ -54,7 +54,7 @@ public class GuiSpeedometerSettingsScreen extends GuiScreen {
     	
     	public void draw()
     	{
-            this.drawRect(x, y, x+width, y+height, color);
+            Gui.drawRect(x, y, x+width, y+height, color);
     	}
     }
     
@@ -90,8 +90,8 @@ public class GuiSpeedometerSettingsScreen extends GuiScreen {
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
                 this.field_82253_i = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
                 int k = this.getHoverState(this.field_82253_i);
-                this.drawRect(this.xPosition, this.yPosition, this.xPosition+this.width, this.yPosition+this.height, isHighlighted ? highlightColor : 0xFFA0A0A0);
-                this.drawRect(this.xPosition+1, this.yPosition+1, this.xPosition+this.width-1, this.yPosition+this.height-1, k == 0 ? disabledColor : (k == 1 ? buttonColor : hoverColor));
+                Gui.drawRect(this.xPosition, this.yPosition, this.xPosition+this.width, this.yPosition+this.height, isHighlighted ? highlightColor : 0xFFA0A0A0);
+                Gui.drawRect(this.xPosition+1, this.yPosition+1, this.xPosition+this.width-1, this.yPosition+this.height-1, k == 0 ? disabledColor : (k == 1 ? buttonColor : hoverColor));
                 this.mouseDragged(par1Minecraft, par2, par3);
                 int l = 14737632;
 
@@ -109,12 +109,13 @@ public class GuiSpeedometerSettingsScreen extends GuiScreen {
         }
     }
     
-    protected List backgroundList = new ArrayList();
+    protected List<Background> backgroundList = new ArrayList<Background>();
 
     /**
      * Adds the buttons (and other controls) to the screen in question.
      */
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void initGui() {
     	int topY = Math.max(padding, height / 6 - rowHeight);
     	int bottomY = height-buttonHeight-padding*2;
@@ -272,8 +273,6 @@ public class GuiSpeedometerSettingsScreen extends GuiScreen {
         
         int ys = Math.max(padding, height / 6 - rowHeight);
         int xs = width / 2;
-        int margin = 10;
-        int line = 20;
         
         drawDefaultBackground();
         for (int k = 0; k < this.backgroundList.size(); ++k)

@@ -1,4 +1,4 @@
-package squeek.mods.speedometer;
+package squeek.speedometer;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

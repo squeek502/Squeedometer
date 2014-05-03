@@ -1,6 +1,6 @@
 [
 {
-  "modid": "sq_Speedometer",
+  "modid": "squeek_Speedometer",
   "name": "Speedometer",
   "description": "A speedometer.",
   "version": "${version}",

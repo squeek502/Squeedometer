@@ -1,27 +1,17 @@
-package squeek.mods.speedometer;
-
-import java.util.Collection;
-import java.util.Iterator;
+package squeek.speedometer;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import cpw.mods.fml.client.FMLClientHandler;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.event.EventPriority;
 import net.minecraftforge.event.ForgeSubscribe;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
+import cpw.mods.fml.client.FMLClientHandler;
 
 //
-// GuiSpeedometer implements a simple status bar at the top of the screen which
-// shows the current buffs/debuffs applied to the character.
+// GuiSpeedometer
 //
 public class GuiSpeedometer extends Gui
 {
@@ -73,7 +63,7 @@ public class GuiSpeedometer extends Gui
 
 	private float lastJumpInfoTimeRemaining()
 	{
-		return (this.mc.getSystemTime() - this.jumpInfoStartTime)/1000.0F;
+		return (Minecraft.getSystemTime() - this.jumpInfoStartTime)/1000.0F;
 	}
 	
 	private boolean showingLastJumpInfo()
@@ -83,8 +73,7 @@ public class GuiSpeedometer extends Gui
 	
 	private void draw()
 	{
-		final ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
-		final float scale = scaledresolution.getScaleFactor();
+		final ScaledResolution scaledresolution = new ScaledResolution(GuiSpeedometer.mc.gameSettings, GuiSpeedometer.mc.displayWidth, GuiSpeedometer.mc.displayHeight);
 
 		boolean drawCurrentSpeed = true;
 		boolean drawJumpSpeedChanged = lastJumpSpeed != 0 && showingLastJumpInfo();
@@ -92,8 +81,8 @@ public class GuiSpeedometer extends Gui
 		String strCurrentSpeed = drawCurrentSpeed ? String.format( "%.4f %s", ModConfig.SPEED_UNIT.convertTo( this.currentSpeed ), ModConfig.SPEED_UNIT ) : null;
 		String strJumpSpeedChanged = !this.wasFirstJump ? String.format( "%+.2f (%+.1f%%)", ModConfig.SPEED_UNIT.convertTo( this.jumpSpeedChanged ), ((this.percentJumpSpeedChanged)*100.0F) ) : String.format( "%.4f", ModConfig.SPEED_UNIT.convertTo( this.firstJumpSpeed ) );
 
-		int width = this.mc.fontRenderer.getStringWidth(strCurrentSpeed);
-		int height = this.mc.fontRenderer.FONT_HEIGHT;
+		int width = GuiSpeedometer.mc.fontRenderer.getStringWidth(strCurrentSpeed);
+		int height = GuiSpeedometer.mc.fontRenderer.FONT_HEIGHT;
 		int padding = ModConfig.SPEEDOMETER_PADDING.getInt();
 		int margin = ModConfig.SPEEDOMETER_MARGIN.getInt();
 		int xPos = ModConfig.SPEEDOMETER_XPOS.getInt() + margin;
@@ -111,14 +100,14 @@ public class GuiSpeedometer extends Gui
 			yPos += scaledresolution.getScaledHeight() - margin*2 - realheight;
 
 		if (ModConfig.SPEEDOMETER_DRAW_BACKGROUND.getBoolean(true))
-			this.drawRect(xPos, yPos, xPos+width+padding*2, yPos+height+padding+padding-1, 0xAA000000);
+			Gui.drawRect(xPos, yPos, xPos+width+padding*2, yPos+height+padding+padding-1, 0xAA000000);
 
 		xPos += padding;
 		yPos += padding;
 
 		if (drawJumpSpeedChanged && ModConfig.LAST_JUMP_INFO_ENABLED.getBoolean(true))
 		{
-			int stringWidth = this.mc.fontRenderer.getStringWidth(strJumpSpeedChanged);
+			int stringWidth = GuiSpeedometer.mc.fontRenderer.getStringWidth(strJumpSpeedChanged);
 			int floatingXPos = (int)(xPos+(width/2) - stringWidth/2);
 			
 			// dont let it go offscreen
@@ -128,39 +117,39 @@ public class GuiSpeedometer extends Gui
 				floatingXPos = scaledresolution.getScaledWidth()-stringWidth-margin;
 			
 			int floatingYPos = yPos;
-			int floatingYPosOffset = (int)(this.mc.fontRenderer.FONT_HEIGHT*1.75F);
+			int floatingYPosOffset = (int)(GuiSpeedometer.mc.fontRenderer.FONT_HEIGHT*1.75F);
 			int floatingYPosOffsetDirection = (floatingYPos - floatingYPosOffset < 0) ? 1 : -1;
 			floatingYPos += floatingYPosOffsetDirection*floatingYPosOffset;
 			
 			if (ModConfig.LAST_JUMP_INFO_FLOAT_ENABLED.getBoolean(true))
 			{
 				float percentJumpInfoElapsed = lastJumpInfoTimeRemaining() / (float)(ModConfig.LAST_JUMP_INFO_DURATION.getDouble(ModConfig.LAST_JUMP_INFO_DURATION_DEFAULT));
-				floatingYPos += floatingYPosOffsetDirection*(percentJumpInfoElapsed*this.mc.fontRenderer.FONT_HEIGHT*4);
+				floatingYPos += floatingYPosOffsetDirection*(percentJumpInfoElapsed*GuiSpeedometer.mc.fontRenderer.FONT_HEIGHT*4);
 			}
 			int color = this.wasFirstJump ? 0x2b7bff : (this.jumpSpeedChanged == 0 ? 14737632 : (this.jumpSpeedChanged > 0 ? 1481216 : 10092544));
-			this.drawString(this.mc.fontRenderer, strJumpSpeedChanged, floatingXPos, floatingYPos, color);
+			this.drawString(GuiSpeedometer.mc.fontRenderer, strJumpSpeedChanged, floatingXPos, floatingYPos, color);
 		}
 		
 		if (drawCurrentSpeed)
 		{
-			this.drawString(this.mc.fontRenderer, strCurrentSpeed, xPos, yPos, 14737632);
+			this.drawString(GuiSpeedometer.mc.fontRenderer, strCurrentSpeed, xPos, yPos, 14737632);
 		}
 	}
 	
 	private void updateValues()
 	{
-		double distTraveledLastTickX = this.mc.thePlayer.posX - this.mc.thePlayer.prevPosX;
-		double distTraveledLastTickZ = this.mc.thePlayer.posZ - this.mc.thePlayer.prevPosZ;
+		double distTraveledLastTickX = GuiSpeedometer.mc.thePlayer.posX - GuiSpeedometer.mc.thePlayer.prevPosX;
+		double distTraveledLastTickZ = GuiSpeedometer.mc.thePlayer.posZ - GuiSpeedometer.mc.thePlayer.prevPosZ;
 		this.currentSpeed = MathHelper.sqrt_double( distTraveledLastTickX*distTraveledLastTickX + distTraveledLastTickZ*distTraveledLastTickZ );
 
-		if ((showingLastJumpInfo() || didJumpThisTick) && !(this.mc.thePlayer.onGround && !isJumping))
+		if ((showingLastJumpInfo() || didJumpThisTick) && !(GuiSpeedometer.mc.thePlayer.onGround && !isJumping))
 		{
 			if (didJumpThisTick && !this.didJumpLastTick)
 			{
 				this.wasFirstJump = this.lastJumpSpeed == 0.0D;
 				this.percentJumpSpeedChanged = (this.currentSpeed != 0.0D) ? (this.currentSpeed / this.lastJumpSpeed - 1.0D) : -1.0D;
 				this.jumpSpeedChanged = this.currentSpeed - this.lastJumpSpeed;
-				this.jumpInfoStartTime = this.mc.getSystemTime();
+				this.jumpInfoStartTime = Minecraft.getSystemTime();
 				this.lastJumpSpeed = this.currentSpeed;
 				this.firstJumpSpeed = this.wasFirstJump ? this.lastJumpSpeed : 0.0D;
 			}

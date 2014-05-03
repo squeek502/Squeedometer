@@ -1,5 +1,6 @@
-package squeek.mods.speedometer;
+package squeek.speedometer;
 
+import squeek.speedometer.ModInfo;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.common.Mod;
@@ -8,15 +9,14 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Mod(modid="squeek_Speedometer", name="Speedometer", version="0.1.0")
+@Mod(modid=ModInfo.MODID, name="Speedometer", version=ModInfo.VERSION)
 public class ModSpeedometer {
 
         // The instance of your mod that Forge uses.
-        @Instance(value = "squeek_Speedometer")
+        @Instance(value = ModInfo.MODID)
         public static ModSpeedometer instance;
        
         @EventHandler
