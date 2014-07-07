@@ -158,7 +158,7 @@ public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGu
 
 			while (iterator.hasNext())
 			{
-				String s = (String) iterator.next();
+				String s = iterator.next();
 				int l = font.getStringWidth(s);
 
 				if (l > k)
@@ -202,7 +202,7 @@ public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGu
 
 			for (int k2 = 0; k2 < par1List.size(); ++k2)
 			{
-				String s1 = (String) par1List.get(k2);
+				String s1 = par1List.get(k2);
 				font.drawStringWithShadow(s1, i1, j1, -1);
 
 				if (k2 == 0)

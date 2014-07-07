@@ -277,7 +277,7 @@ public class GuiSpeedometerSettingsScreen extends GuiScreen {
         drawDefaultBackground();
         for (int k = 0; k < this.backgroundList.size(); ++k)
         {
-            Background guibackground = (Background)this.backgroundList.get(k);
+            Background guibackground = this.backgroundList.get(k);
             guibackground.draw();
         }
         

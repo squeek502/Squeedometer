@@ -37,6 +37,7 @@ public class SpeedUnit {
 		return id;
 	}
 	
+	@Override
 	public final String toString()
 	{
 		return name;

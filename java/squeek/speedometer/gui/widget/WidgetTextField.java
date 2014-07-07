@@ -189,8 +189,10 @@ public class WidgetTextField extends WidgetBase
         return textField.isFocused();
     }
 
-    public void setEnabled(boolean par1)
+    @Override
+	public void setEnabled(boolean par1)
     {
+    	this.setEnabled(par1);
         textField.setEnabled(par1);
     }
 
