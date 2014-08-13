@@ -1,0 +1,21 @@
+# Settings screen
+squeedometer.settings.title=Squeedometer settings
+squeedometer.settings.x=X:
+squeedometer.settings.y=Y:
+squeedometer.settings.margin=Margin:
+squeedometer.settings.padding=Padding:
+squeedometer.settings.screenalign=Screen Alignment:
+squeedometer.settings.lastjump=Last Jump Info: %s
+squeedometer.settings.units=Units: %s
+squeedometer.settings.background=Background: %s
+squeedometer.settings.on=ON
+squeedometer.settings.off=OFF
+squeedometer.settings.save=Save
+squeedometer.settings.cancel=Cancel
+
+# Units
+squeedometer.unit.bpt=blocks/tick
+squeedometer.unit.bps=blocks/sec
+squeedometer.unit.ms=meters/sec
+squeedometer.unit.kmh=km/h
+squeedometer.unit.mph=mph

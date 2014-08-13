@@ -1,6 +1,7 @@
 package squeek.speedometer.gui.screen;
 
 import net.minecraft.client.gui.Gui;
+import net.minecraft.util.StatCollector;
 import org.lwjgl.opengl.GL11;
 import squeek.speedometer.ModConfig;
 import squeek.speedometer.SpeedUnit;
@@ -79,10 +80,10 @@ public class ScreenSpeedometerSettings extends GuiScreen
 		int topY = Math.max(padding, height / 6 - rowHeight);
 		int bottomY = height - buttonHeight - Math.max(padding, height / 8 - rowHeight); //buttonHeight - padding * 2;
 
-		new WidgetLabel(this, midX, topY + fontRenderer.FONT_HEIGHT / 2, "Speedometer settings", 0xFFFFFF, true);
+		new WidgetLabel(this, midX, topY + fontRenderer.FONT_HEIGHT / 2, StatCollector.translateToLocal("squeedometer.settings.title"), 0xFFFFFF, true);
 
-		saveButton = new WidgetButton(this, midX - buttonWidth - padding, bottomY, buttonWidth, buttonHeight, "Save");
-		cancelButton = new WidgetButton(this, midX + padding, bottomY, buttonWidth, buttonHeight, "Cancel");
+		saveButton = new WidgetButton(this, midX - buttonWidth - padding, bottomY, buttonWidth, buttonHeight, StatCollector.translateToLocal("squeedometer.settings.save"));
+		cancelButton = new WidgetButton(this, midX + padding, bottomY, buttonWidth, buttonHeight, StatCollector.translateToLocal("squeedometer.settings.cancel"));
 
 		topY += fontRenderer.FONT_HEIGHT + padding;
 		bottomY -= padding;
@@ -93,20 +94,20 @@ public class ScreenSpeedometerSettings extends GuiScreen
 
 		WidgetWrapper positionSettings = new WidgetWrapper(fluidGrid);
 		xField = new WidgetTextField(positionSettings, 0, fontRenderer.FONT_HEIGHT + padding, halfColWidth, rowHeight);
-		new WidgetLabel(positionSettings, 0, 0, "X:").drawCentered = false;
+		new WidgetLabel(positionSettings, 0, 0, StatCollector.translateToLocal("squeedometer.settings.x")).drawCentered = false;
 		yField = new WidgetTextField(positionSettings, halfColWidth + padding, fontRenderer.FONT_HEIGHT + padding, halfColWidth, rowHeight);
-		new WidgetLabel(positionSettings, halfColWidth + padding, 0, "Y:").drawCentered = false;
+		new WidgetLabel(positionSettings, halfColWidth + padding, 0, StatCollector.translateToLocal("squeedometer.settings.y")).drawCentered = false;
 
 		WidgetWrapper layoutSettings = new WidgetWrapper(fluidGrid);
 		marginField = new WidgetTextField(layoutSettings, 0, fontRenderer.FONT_HEIGHT + padding, halfColWidth, rowHeight);
-		new WidgetLabel(layoutSettings, 0, 0, "Margin:").drawCentered = false;
+		new WidgetLabel(layoutSettings, 0, 0, StatCollector.translateToLocal("squeedometer.settings.margin")).drawCentered = false;
 		paddingField = new WidgetTextField(layoutSettings, halfColWidth + padding, fontRenderer.FONT_HEIGHT + padding, halfColWidth, rowHeight);
-		new WidgetLabel(layoutSettings, halfColWidth + padding, 0, "Padding:").drawCentered = false;
+		new WidgetLabel(layoutSettings, halfColWidth + padding, 0, StatCollector.translateToLocal("squeedometer.settings.padding")).drawCentered = false;
 
 		int alignBoxTop = fontRenderer.FONT_HEIGHT + padding;
 		int alignBoxHeight = buttonHeight * 3 - 4;
 		alignmentSettings = new WidgetWrapper(fluidGrid);
-		new WidgetLabel(alignmentSettings, 0, 0, "Screen Alignment:").drawCentered = false;
+		new WidgetLabel(alignmentSettings, 0, 0, StatCollector.translateToLocal("squeedometer.settings.screenalign")).drawCentered = false;
 		new WidgetBox(alignmentSettings, 0, alignBoxTop, colWidth, alignBoxHeight);
 		new WidgetScreenAlignment(alignmentSettings, 0, alignBoxTop, alignButtonDimensions, alignButtonDimensions, "left", "top");
 		new WidgetScreenAlignment(alignmentSettings, colWidth / 2 - alignButtonDimensions / 2, alignBoxTop, alignButtonDimensions, alignButtonDimensions, "center", "top");
@@ -133,9 +134,9 @@ public class ScreenSpeedometerSettings extends GuiScreen
 
 	private void setWidgetValuesFromConfig()
 	{
-		lastJumpButton.setLabelText(String.format("Last Jump Info: %s", ModConfig.LAST_JUMP_INFO_ENABLED.getBoolean(true) ? "ON" : "OFF"));
-		unitsButton.setLabelText(String.format("Units: %s", ModConfig.SPEED_UNIT.toString()));
-		backgroundButton.setLabelText(String.format("Background: %s", ModConfig.SPEEDOMETER_DRAW_BACKGROUND.getBoolean(true) ? "ON" : "OFF"));
+		lastJumpButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.lastjump", ModConfig.LAST_JUMP_INFO_ENABLED.getBoolean(true) ? StatCollector.translateToLocal("squeedometer.settings.on") : StatCollector.translateToLocal("squeedometer.settings.off")));
+		unitsButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.units", ModConfig.SPEED_UNIT.toString()));
+		backgroundButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.background", ModConfig.SPEEDOMETER_DRAW_BACKGROUND.getBoolean(true) ? StatCollector.translateToLocal("squeedometer.settings.on") : StatCollector.translateToLocal("squeedometer.settings.off")));
 		xField.setText(String.valueOf(ModConfig.SPEEDOMETER_XPOS.getInt(0)));
 		yField.setText(String.valueOf(ModConfig.SPEEDOMETER_YPOS.getInt(0)));
 		marginField.setText(String.valueOf(ModConfig.SPEEDOMETER_MARGIN.getInt(0)));
@@ -223,14 +224,23 @@ public class ScreenSpeedometerSettings extends GuiScreen
 		else if (event == GuiEvent.TEXT_CHANGED)
 		{
 			String text = (String) data[0];
+			int intVal;
+			try
+			{
+				intVal = Integer.parseInt(text);
+			}
+			catch (NumberFormatException ex)
+			{
+				return;
+			}
 			if (source == xField)
-				ModConfig.SPEEDOMETER_XPOS.set(getIntValueOfText(text));
+				ModConfig.SPEEDOMETER_XPOS.set(intVal);
 			else if (source == yField)
-				ModConfig.SPEEDOMETER_YPOS.set(getIntValueOfText(text));
+				ModConfig.SPEEDOMETER_YPOS.set(intVal);
 			else if (source == marginField)
-				ModConfig.SPEEDOMETER_MARGIN.set(getIntValueOfText(text));
+				ModConfig.SPEEDOMETER_MARGIN.set(intVal);
 			else if (source == paddingField)
-				ModConfig.SPEEDOMETER_PADDING.set(getIntValueOfText(text));
+				ModConfig.SPEEDOMETER_PADDING.set(intVal);
 			else
 				return;
 
@@ -238,17 +248,5 @@ public class ScreenSpeedometerSettings extends GuiScreen
 		}
 
 		super.onGuiEvent(event, source, data);
-	}
-
-	private int getIntValueOfText(String text)
-	{
-		try
-		{
-			return Integer.parseInt(text);
-		}
-		catch (NumberFormatException ex)
-		{
-			return 0;
-		}
 	}
 }

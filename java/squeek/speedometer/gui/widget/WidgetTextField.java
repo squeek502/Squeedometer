@@ -19,6 +19,11 @@ public class WidgetTextField extends WidgetBase
 	public void mouseClicked(int mouseX, int mouseY, int type, boolean isShiftKeyDown)
 	{
 		super.mouseClicked(mouseX, mouseY, type, isShiftKeyDown);
+		if (type == 1 && isMouseInsideBounds(mouseX, mouseY))
+		{
+			this.textField.setText("");
+			this.onTextChangedByUser("");
+		}
 		this.textField.mouseClicked(mouseX, mouseY, type);
 	}
 
