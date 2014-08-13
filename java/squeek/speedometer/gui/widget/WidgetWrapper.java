@@ -36,15 +36,15 @@ public class WidgetWrapper extends WidgetBase
 		//bounds.drawBackground(mouseX, mouseY);
 		super.drawBackground(mouseX, mouseY);
 	}
-	
+
 	@Override
 	protected void onChildAdded(IWidget child)
 	{
 		super.onChildAdded(child);
-		
+
 		child.setPos(getX() + child.getX(), getY() + child.getY());
 	}
-	
+
 	@Override
 	public void onGuiEvent(GuiEvent event, Object source, Object[] data)
 	{
@@ -63,7 +63,7 @@ public class WidgetWrapper extends WidgetBase
 
 		determineBounds();
 	}
-	
+
 	public void determineBounds()
 	{
 		int minX = 0, minY = 0, maxX = 0, maxY = 0;

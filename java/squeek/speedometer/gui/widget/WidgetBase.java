@@ -1,10 +1,10 @@
 package squeek.speedometer.gui.widget;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import squeek.speedometer.gui.GuiEvent;
 import squeek.speedometer.gui.IGuiEventHandler;
 import squeek.speedometer.gui.IGuiHierarchical;
@@ -15,7 +15,7 @@ public abstract class WidgetBase extends Gui implements IWidget, IGuiEventHandle
 	public int y = 0;
 	public int w = 0;
 	public int h = 0;
-	protected List<IWidget> children = new ArrayList<IWidget>();
+	public List<IWidget> children = new ArrayList<IWidget>();
 	protected IGuiHierarchical parent = null;
 	protected Minecraft mc = Minecraft.getMinecraft();
 	protected boolean visible = true;
@@ -41,7 +41,7 @@ public abstract class WidgetBase extends Gui implements IWidget, IGuiEventHandle
 		this.y = y;
 		this.setParent(parent);
 	}
-	
+
 	public WidgetBase(IGuiHierarchical parent, int x, int y, int w, int h)
 	{
 		this.x = x;
@@ -106,7 +106,7 @@ public abstract class WidgetBase extends Gui implements IWidget, IGuiEventHandle
 	protected void onChildrenChanged()
 	{
 	}
-	
+
 	protected void onChildAdded(IWidget child)
 	{
 	}
@@ -123,7 +123,7 @@ public abstract class WidgetBase extends Gui implements IWidget, IGuiEventHandle
 	public void addChildren(List<IWidget> children)
 	{
 		this.children.addAll(children);
-		for(IWidget child : children)
+		for (IWidget child : children)
 			onChildAdded(child);
 		onChildrenChanged();
 	}
@@ -180,7 +180,7 @@ public abstract class WidgetBase extends Gui implements IWidget, IGuiEventHandle
 		{
 			child.setPos(child.getX() + offsetX, child.getY() + offsetY);
 		}
-		
+
 		this.x = x;
 		this.y = y;
 		invalidateLayout();
@@ -197,7 +197,7 @@ public abstract class WidgetBase extends Gui implements IWidget, IGuiEventHandle
 	{
 		return y;
 	}
-	
+
 	@Override
 	public void setSize(int w, int h)
 	{
@@ -205,7 +205,7 @@ public abstract class WidgetBase extends Gui implements IWidget, IGuiEventHandle
 		this.h = h;
 		invalidateLayout();
 	}
-	
+
 	@Override
 	public int getWidth()
 	{
@@ -217,7 +217,7 @@ public abstract class WidgetBase extends Gui implements IWidget, IGuiEventHandle
 	{
 		return h;
 	}
-	
+
 	protected void invalidateLayout()
 	{
 		pushGuiEvent(GuiEvent.LAYOUT_CHANGED);

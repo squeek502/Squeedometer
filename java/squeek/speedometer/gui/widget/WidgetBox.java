@@ -1,8 +1,8 @@
 package squeek.speedometer.gui.widget;
 
-import org.lwjgl.opengl.GL11;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import squeek.speedometer.gui.IGuiHierarchical;
 
 public class WidgetBox extends WidgetBase
@@ -16,7 +16,7 @@ public class WidgetBox extends WidgetBase
 	{
 		super(parent, x, y, w, h);
 	}
-	
+
 	public WidgetBox(IGuiHierarchical parent, int x, int y, int w, int h, ResourceLocation texture, int textureX, int textureY)
 	{
 		super(parent, x, y, w, h);

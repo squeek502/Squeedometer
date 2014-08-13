@@ -45,6 +45,6 @@ public class SpeedUnit {
 	
 	public static SpeedUnit[] getUnits()
 	{
-		return units.toArray( new SpeedUnit[units.size()] );
+		return units.toArray(new SpeedUnit[units.size()]);
 	}
 }

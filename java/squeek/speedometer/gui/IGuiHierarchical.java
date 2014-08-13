@@ -14,10 +14,10 @@ public interface IGuiHierarchical
 	public void removeChildren(List<IWidget> children);
 
 	public void clearChildren();
-	
+
 	public IGuiHierarchical getParent();
-	
+
 	public void setParent(IGuiHierarchical parent);
-	
+
 	public IGuiHierarchical getTopMostParent();
 }

@@ -12,28 +12,30 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-@Mod(modid=ModInfo.MODID, name="Speedometer", version=ModInfo.VERSION)
-public class ModSpeedometer {
+@Mod(modid = ModInfo.MODID, version = ModInfo.VERSION)
+public class ModSpeedometer
+{
+	@Instance(value = ModInfo.MODID)
+	public static ModSpeedometer instance;
 
-        // The instance of your mod that Forge uses.
-        @Instance(value = ModInfo.MODID)
-        public static ModSpeedometer instance;
-       
-        @EventHandler
-        @SideOnly( Side.CLIENT )
-        public void preInit(FMLPreInitializationEvent event) {
-        	ModConfig.init( event.getSuggestedConfigurationFile() );
-        }
-       
-        @EventHandler
-        @SideOnly( Side.CLIENT )
-        public void load(FMLInitializationEvent event) {
-            KeyBindingRegistry.registerKeyBinding(new SpeedometerKeyHandler());
-        }
-       
-        @EventHandler
-        @SideOnly( Side.CLIENT )
-        public void postInit(FMLPostInitializationEvent event) {
-        	MinecraftForge.EVENT_BUS.register(new GuiSpeedometer());
-        }
+	@EventHandler
+	@SideOnly(Side.CLIENT)
+	public void preInit(FMLPreInitializationEvent event)
+	{
+		ModConfig.init(event.getSuggestedConfigurationFile());
+	}
+
+	@EventHandler
+	@SideOnly(Side.CLIENT)
+	public void load(FMLInitializationEvent event)
+	{
+		KeyBindingRegistry.registerKeyBinding(new SpeedometerKeyHandler());
+	}
+
+	@EventHandler
+	@SideOnly(Side.CLIENT)
+	public void postInit(FMLPostInitializationEvent event)
+	{
+		MinecraftForge.EVENT_BUS.register(new HudSpeedometer());
+	}
 }
