@@ -35,7 +35,7 @@ public class ModConfig
 
 	public static Property SPEEDOMETER_PRECISION;
 	private static final String SPEEDOMETER_PRECISION_NAME = "precision";
-	public static final int SPEEDOMETER_PRECISION_DEFAULT = 4;
+	public static final int SPEEDOMETER_PRECISION_DEFAULT = 2;
 
 	public static Property SPEEDOMETER_DRAW_BACKGROUND;
 	private static final String SPEEDOMETER_DRAW_BACKGROUND_NAME = "drawBackground";
