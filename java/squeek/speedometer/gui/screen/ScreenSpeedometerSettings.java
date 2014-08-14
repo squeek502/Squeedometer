@@ -25,6 +25,7 @@ public class ScreenSpeedometerSettings extends GuiScreen
 	protected WidgetButton cancelButton;
 
 	protected WidgetButton lastJumpButton;
+	protected WidgetButton lastJumpFloatButton;
 	protected WidgetButton unitsButton;
 	protected WidgetButton backgroundButton;
 	protected WidgetButton showUnitsButton;
@@ -107,7 +108,7 @@ public class ScreenSpeedometerSettings extends GuiScreen
 		new WidgetLabel(layoutSettings, halfColWidth + padding, 0, StatCollector.translateToLocal("squeedometer.settings.padding")).drawCentered = false;
 
 		int alignBoxTop = fontRenderer.FONT_HEIGHT + padding;
-		int alignBoxHeight = buttonHeight * 2 - 2;
+		int alignBoxHeight = buttonHeight * 2 + 6;
 		alignmentSettings = new WidgetWrapper(fluidGrid);
 		new WidgetLabel(alignmentSettings, 0, 0, StatCollector.translateToLocal("squeedometer.settings.screenalign")).drawCentered = false;
 		new WidgetBox(alignmentSettings, 0, alignBoxTop, colWidth, alignBoxHeight);
@@ -122,10 +123,13 @@ public class ScreenSpeedometerSettings extends GuiScreen
 		new WidgetScreenAlignment(alignmentSettings, colWidth - alignButtonDimensions, alignBoxTop + alignBoxHeight - alignButtonDimensions, alignButtonDimensions, alignButtonDimensions, "right", "bottom");
 
 		WidgetWrapper buttons = new WidgetWrapper(fluidGrid);
-		lastJumpButton = new WidgetButton(buttons, 0, 0, colWidth, buttonHeight, "");
-		unitsButton = new WidgetButton(buttons, 0, buttonHeight + padding, colWidth, buttonHeight, "");
-		backgroundButton = new WidgetButton(buttons, 0, buttonHeight * 2 + padding * 2, colWidth, buttonHeight, "");
-		showUnitsButton = new WidgetButton(buttons, 0, buttonHeight * 3 + padding * 3, colWidth, buttonHeight, "");
+		unitsButton = new WidgetButton(buttons, 0, 0, colWidth, buttonHeight, "");
+		backgroundButton = new WidgetButton(buttons, 0, buttonHeight + padding, colWidth, buttonHeight, "");
+		showUnitsButton = new WidgetButton(buttons, 0, buttonHeight * 2 + padding * 2, colWidth, buttonHeight, "");
+
+		WidgetWrapper jumpInfoButtons = new WidgetWrapper(fluidGrid);
+		lastJumpButton = new WidgetButton(jumpInfoButtons, 0, 0, colWidth, buttonHeight, "");
+		lastJumpFloatButton = new WidgetButton(jumpInfoButtons, 0, buttonHeight + padding, colWidth, buttonHeight, "");
 
 		WidgetWrapper precisionSettings = new WidgetWrapper(fluidGrid);
 		precisionField = new WidgetTextField(precisionSettings, 0, fontRenderer.FONT_HEIGHT + padding, colWidth, rowHeight);
@@ -134,7 +138,8 @@ public class ScreenSpeedometerSettings extends GuiScreen
 		if (!Loader.isModLoaded("Squake"))
 		{
 			lastJumpButton.setEnabled(false);
-			lastJumpButton.setTooltipString(StatCollector.translateToLocal("squeedometer.needs.squake"));
+			lastJumpFloatButton.setEnabled(false);
+			jumpInfoButtons.setTooltipString(StatCollector.translateToLocal("squeedometer.needs.squake"));
 		}
 
 		fluidGrid.determineLayout();
@@ -145,6 +150,7 @@ public class ScreenSpeedometerSettings extends GuiScreen
 	private void setWidgetValuesFromConfig()
 	{
 		lastJumpButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.lastjump", ModConfig.LAST_JUMP_INFO_ENABLED.getBoolean(true) ? StatCollector.translateToLocal("squeedometer.settings.on") : StatCollector.translateToLocal("squeedometer.settings.off")));
+		lastJumpFloatButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.lastjump.float", ModConfig.LAST_JUMP_INFO_FLOAT_ENABLED.getBoolean(true) ? StatCollector.translateToLocal("squeedometer.settings.on") : StatCollector.translateToLocal("squeedometer.settings.off")));
 		unitsButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.units", ModConfig.SPEED_UNIT.toString()));
 		backgroundButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.background", ModConfig.SPEEDOMETER_DRAW_BACKGROUND.getBoolean(true) ? StatCollector.translateToLocal("squeedometer.settings.on") : StatCollector.translateToLocal("squeedometer.settings.off")));
 		showUnitsButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.show.units", ModConfig.SHOW_UNITS.getBoolean(true) ? ModConfig.MINIMAL_UNITS.getBoolean(true) ? StatCollector.translateToLocal("squeedometer.settings.minimal") : StatCollector.translateToLocal("squeedometer.settings.on") : StatCollector.translateToLocal("squeedometer.settings.off")));
@@ -202,7 +208,18 @@ public class ScreenSpeedometerSettings extends GuiScreen
 			}
 			else if (source == lastJumpButton)
 			{
-				ModConfig.LAST_JUMP_INFO_ENABLED.set(!ModConfig.LAST_JUMP_INFO_ENABLED.getBoolean(true));
+				boolean lastJump = ModConfig.LAST_JUMP_INFO_ENABLED.getBoolean(true);
+
+				if (lastJump)
+					lastJumpFloatButton.setEnabled(false);
+				else
+					lastJumpFloatButton.setEnabled(true);
+
+				ModConfig.LAST_JUMP_INFO_ENABLED.set(!lastJump);
+			}
+			else if (source == lastJumpFloatButton)
+			{
+				ModConfig.LAST_JUMP_INFO_FLOAT_ENABLED.set(!ModConfig.LAST_JUMP_INFO_FLOAT_ENABLED.getBoolean(true));
 			}
 			else if (source == unitsButton)
 			{

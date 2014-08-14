@@ -7,6 +7,7 @@ squeedometer.settings.padding=Padding:
 squeedometer.settings.screenalign=Screen Alignment:
 squeedometer.settings.precision=Precision:
 squeedometer.settings.lastjump=Last Jump Info: %s
+squeedometer.settings.lastjump.float=Last Jump Floating: %s
 squeedometer.settings.units=Units: %s
 squeedometer.settings.background=Background: %s
 squeedometer.settings.show.units=Show Units: %s
