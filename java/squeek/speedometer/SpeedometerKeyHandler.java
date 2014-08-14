@@ -10,9 +10,9 @@ import cpw.mods.fml.common.TickType;
 
 public class SpeedometerKeyHandler extends KeyHandler
 {
-	private static final KeyBinding SETTINGS_KEY = new KeyBinding("key.speedometer.settings", Keyboard.KEY_P);
+	private static final KeyBinding SETTINGS_KEY = new KeyBinding("squeedometer.key.settings", Keyboard.KEY_P);
 	private static final KeyBinding[] KEYS = new KeyBinding[]{SETTINGS_KEY};
-	private static final boolean[] REPEAT = new boolean[]{false, false};
+	private static final boolean[] REPEAT = new boolean[]{false};
 
 	public SpeedometerKeyHandler()
 	{
@@ -30,6 +30,10 @@ public class SpeedometerKeyHandler extends KeyHandler
 		if (kb == SETTINGS_KEY)
 		{
 			Minecraft mc = Minecraft.getMinecraft();
+
+			if (mc.currentScreen != null)
+				return;
+
 			mc.displayGuiScreen(new ScreenSpeedometerSettings());
 		}
 	}

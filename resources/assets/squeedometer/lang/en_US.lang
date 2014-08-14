@@ -12,6 +12,7 @@ squeedometer.settings.on=ON
 squeedometer.settings.off=OFF
 squeedometer.settings.save=Save
 squeedometer.settings.cancel=Cancel
+squeedometer.needs.squake=The mod 'Squake' needs to be installed for this to work
 
 # Units
 squeedometer.unit.bpt=blocks/tick
@@ -19,3 +20,6 @@ squeedometer.unit.bps=blocks/sec
 squeedometer.unit.ms=meters/sec
 squeedometer.unit.kmh=km/h
 squeedometer.unit.mph=mph
+
+# Keybinds
+squeedometer.key.settings=[Squeedometer] Settings

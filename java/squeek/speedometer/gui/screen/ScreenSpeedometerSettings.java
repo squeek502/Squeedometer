@@ -125,7 +125,10 @@ public class ScreenSpeedometerSettings extends GuiScreen
 		backgroundButton = new WidgetButton(buttons, 0, buttonHeight * 2 + padding * 2, colWidth, buttonHeight, "");
 
 		if (!Loader.isModLoaded("Squake"))
+		{
 			lastJumpButton.setEnabled(false);
+			lastJumpButton.setTooltipString(StatCollector.translateToLocal("squeedometer.needs.squake"));
+		}
 
 		fluidGrid.determineLayout();
 
@@ -159,6 +162,7 @@ public class ScreenSpeedometerSettings extends GuiScreen
 	{
 		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, f);
+		GL11.glDisable(GL11.GL_LIGHTING);
 	}
 
 	@Override
