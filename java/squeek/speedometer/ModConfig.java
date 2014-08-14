@@ -113,20 +113,15 @@ public class ModConfig
 
 	public static void setSpeedUnit(String speedUnitId)
 	{
-		SpeedUnit[] units = SpeedUnit.getUnits();
-		boolean found = false;
-		for (int i = 0; i < units.length; i++)
-		{
-			String id = units[i].getId();
-			if (speedUnitId.equals(id))
-			{
-				found = true;
-				SPEED_UNIT = units[i];
-				break;
-			}
-		}
-		if (!found)
+		setSpeedUnit(SpeedUnit.getById(speedUnitId));
+	}
+	
+	public static void setSpeedUnit(SpeedUnit speedUnit)
+	{
+		if (speedUnit == null)
 			SPEED_UNIT = SpeedUnit.BLOCKSPERSECOND;
+		else
+			SPEED_UNIT = speedUnit;
 
 		SPEED_UNIT_PROPERTY.set(SPEED_UNIT.getId());
 	}

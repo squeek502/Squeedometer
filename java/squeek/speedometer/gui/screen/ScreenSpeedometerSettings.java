@@ -124,8 +124,8 @@ public class ScreenSpeedometerSettings extends GuiScreen
 
 		WidgetWrapper buttons = new WidgetWrapper(fluidGrid);
 		unitsButton = new WidgetButton(buttons, 0, 0, colWidth, buttonHeight, "");
-		backgroundButton = new WidgetButton(buttons, 0, buttonHeight + padding, colWidth, buttonHeight, "");
-		showUnitsButton = new WidgetButton(buttons, 0, buttonHeight * 2 + padding * 2, colWidth, buttonHeight, "");
+		showUnitsButton = new WidgetButton(buttons, 0, buttonHeight + padding, colWidth, buttonHeight, "");
+		backgroundButton = new WidgetButton(buttons, 0, buttonHeight * 2 + padding * 2, colWidth, buttonHeight, "");
 
 		WidgetWrapper jumpInfoButtons = new WidgetWrapper(fluidGrid);
 		lastJumpButton = new WidgetButton(jumpInfoButtons, 0, 0, colWidth, buttonHeight, "");
@@ -223,19 +223,10 @@ public class ScreenSpeedometerSettings extends GuiScreen
 			}
 			else if (source == unitsButton)
 			{
-				SpeedUnit[] units = SpeedUnit.getUnits();
-				int curIndex = 0;
-				for (int i = 0; i < units.length; i++)
-				{
-					if (units[i] == ModConfig.SPEED_UNIT)
-					{
-						curIndex = i;
-						break;
-					}
-				}
+				int numUnits = SpeedUnit.values().length;
 				int step = type == 0 ? 1 : -1;
-				int nextIndex = (curIndex + step % units.length + units.length) % units.length;
-				ModConfig.setSpeedUnit(units[nextIndex].getId());
+				int nextIndex = (ModConfig.SPEED_UNIT.ordinal() + step % numUnits + numUnits) % numUnits;
+				ModConfig.setSpeedUnit(SpeedUnit.values()[nextIndex]);
 			}
 			else if (source == backgroundButton)
 			{
