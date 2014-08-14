@@ -64,8 +64,10 @@ public class HudSpeedometer extends Gui
 		boolean drawCurrentSpeed = true;
 		boolean drawJumpSpeedChanged = lastJumpSpeed != 0 && showingLastJumpInfo();
 
-		String strCurrentSpeed = drawCurrentSpeed ? String.format("%.4f %s", ModConfig.SPEED_UNIT.convertTo(this.currentSpeed), ModConfig.SPEED_UNIT) : null;
-		String strJumpSpeedChanged = !this.wasFirstJump ? String.format("%+.2f (%+.1f%%)", ModConfig.SPEED_UNIT.convertTo(this.jumpSpeedChanged), ((this.percentJumpSpeedChanged) * 100.0F)) : String.format("%.4f", ModConfig.SPEED_UNIT.convertTo(this.firstJumpSpeed));
+		String numFormatString = "%." + ModConfig.SPEEDOMETER_PRECISION.getInt() + "f";
+		String unitString = ModConfig.SHOW_UNITS.getBoolean(true) ? " " + (ModConfig.MINIMAL_UNITS.getBoolean(true) ? ModConfig.SPEED_UNIT.minimalName : ModConfig.SPEED_UNIT.name) : "";
+		String strCurrentSpeed = drawCurrentSpeed ? String.format(numFormatString + "%s", ModConfig.SPEED_UNIT.convertTo(this.currentSpeed), unitString) : null;
+		String strJumpSpeedChanged = !this.wasFirstJump ? String.format("%+.2f (%+.1f%%)", ModConfig.SPEED_UNIT.convertTo(this.jumpSpeedChanged), ((this.percentJumpSpeedChanged) * 100.0F)) : String.format(numFormatString, ModConfig.SPEED_UNIT.convertTo(this.firstJumpSpeed));
 
 		int width = HudSpeedometer.mc.fontRenderer.getStringWidth(strCurrentSpeed);
 		int height = HudSpeedometer.mc.fontRenderer.FONT_HEIGHT;

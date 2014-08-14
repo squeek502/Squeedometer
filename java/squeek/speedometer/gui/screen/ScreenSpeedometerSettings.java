@@ -27,11 +27,13 @@ public class ScreenSpeedometerSettings extends GuiScreen
 	protected WidgetButton lastJumpButton;
 	protected WidgetButton unitsButton;
 	protected WidgetButton backgroundButton;
+	protected WidgetButton showUnitsButton;
 	protected WidgetTextField xField;
 	protected WidgetTextField yField;
 	protected WidgetTextField paddingField;
 	protected WidgetTextField marginField;
 	protected WidgetWrapper alignmentSettings;
+	protected WidgetTextField precisionField;
 
 	protected class WidgetScreenAlignment extends WidgetButton
 	{
@@ -105,7 +107,7 @@ public class ScreenSpeedometerSettings extends GuiScreen
 		new WidgetLabel(layoutSettings, halfColWidth + padding, 0, StatCollector.translateToLocal("squeedometer.settings.padding")).drawCentered = false;
 
 		int alignBoxTop = fontRenderer.FONT_HEIGHT + padding;
-		int alignBoxHeight = buttonHeight * 3 - 4;
+		int alignBoxHeight = buttonHeight * 2 - 2;
 		alignmentSettings = new WidgetWrapper(fluidGrid);
 		new WidgetLabel(alignmentSettings, 0, 0, StatCollector.translateToLocal("squeedometer.settings.screenalign")).drawCentered = false;
 		new WidgetBox(alignmentSettings, 0, alignBoxTop, colWidth, alignBoxHeight);
@@ -123,6 +125,11 @@ public class ScreenSpeedometerSettings extends GuiScreen
 		lastJumpButton = new WidgetButton(buttons, 0, 0, colWidth, buttonHeight, "");
 		unitsButton = new WidgetButton(buttons, 0, buttonHeight + padding, colWidth, buttonHeight, "");
 		backgroundButton = new WidgetButton(buttons, 0, buttonHeight * 2 + padding * 2, colWidth, buttonHeight, "");
+		showUnitsButton = new WidgetButton(buttons, 0, buttonHeight * 3 + padding * 3, colWidth, buttonHeight, "");
+
+		WidgetWrapper precisionSettings = new WidgetWrapper(fluidGrid);
+		precisionField = new WidgetTextField(precisionSettings, 0, fontRenderer.FONT_HEIGHT + padding, colWidth, rowHeight);
+		new WidgetLabel(precisionSettings, 0, 0, StatCollector.translateToLocal("squeedometer.settings.precision")).drawCentered = false;
 
 		if (!Loader.isModLoaded("Squake"))
 		{
@@ -140,10 +147,12 @@ public class ScreenSpeedometerSettings extends GuiScreen
 		lastJumpButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.lastjump", ModConfig.LAST_JUMP_INFO_ENABLED.getBoolean(true) ? StatCollector.translateToLocal("squeedometer.settings.on") : StatCollector.translateToLocal("squeedometer.settings.off")));
 		unitsButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.units", ModConfig.SPEED_UNIT.toString()));
 		backgroundButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.background", ModConfig.SPEEDOMETER_DRAW_BACKGROUND.getBoolean(true) ? StatCollector.translateToLocal("squeedometer.settings.on") : StatCollector.translateToLocal("squeedometer.settings.off")));
+		showUnitsButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.show.units", ModConfig.SHOW_UNITS.getBoolean(true) ? ModConfig.MINIMAL_UNITS.getBoolean(true) ? StatCollector.translateToLocal("squeedometer.settings.minimal") : StatCollector.translateToLocal("squeedometer.settings.on") : StatCollector.translateToLocal("squeedometer.settings.off")));
 		xField.setText(String.valueOf(ModConfig.SPEEDOMETER_XPOS.getInt(0)));
 		yField.setText(String.valueOf(ModConfig.SPEEDOMETER_YPOS.getInt(0)));
 		marginField.setText(String.valueOf(ModConfig.SPEEDOMETER_MARGIN.getInt(0)));
 		paddingField.setText(String.valueOf(ModConfig.SPEEDOMETER_PADDING.getInt(0)));
+		precisionField.setText(String.valueOf(ModConfig.SPEEDOMETER_PRECISION.getInt(0)));
 
 		String alignX = ModConfig.SPEEDOMETER_ALIGNMENT_X.getString();
 		String alignY = ModConfig.SPEEDOMETER_ALIGNMENT_Y.getString();
@@ -215,6 +224,23 @@ public class ScreenSpeedometerSettings extends GuiScreen
 			{
 				ModConfig.SPEEDOMETER_DRAW_BACKGROUND.set(!ModConfig.SPEEDOMETER_DRAW_BACKGROUND.getBoolean(true));
 			}
+			else if (source == showUnitsButton)
+			{
+				boolean showUnits = ModConfig.SHOW_UNITS.getBoolean(true);
+				if (!showUnits)
+				{
+					ModConfig.SHOW_UNITS.set(true);
+					ModConfig.MINIMAL_UNITS.set(false);
+				}
+				else
+				{
+					boolean minimalUnits = ModConfig.MINIMAL_UNITS.getBoolean(true);
+					if (minimalUnits)
+						ModConfig.SHOW_UNITS.set(false);
+					else
+						ModConfig.MINIMAL_UNITS.set(true);
+				}
+			}
 			else if (source instanceof WidgetScreenAlignment)
 			{
 				ModConfig.SPEEDOMETER_ALIGNMENT_X.set((String) data[2]);
@@ -245,6 +271,8 @@ public class ScreenSpeedometerSettings extends GuiScreen
 				ModConfig.SPEEDOMETER_MARGIN.set(intVal);
 			else if (source == paddingField)
 				ModConfig.SPEEDOMETER_PADDING.set(intVal);
+			else if (source == precisionField)
+				ModConfig.SPEEDOMETER_PRECISION.set(intVal);
 			else
 				return;
 

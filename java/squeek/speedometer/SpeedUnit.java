@@ -14,13 +14,20 @@ public class SpeedUnit
 	public static final SpeedUnit MILESPERHOUR = new SpeedUnit(0.44704F * 0.05F, "mph");
 
 	private final float conversionFromBlocksPerTick;
-	private final String name;
+	public final String name;
+	public final String minimalName;
 	private final String id;
 
 	public SpeedUnit(float conversionFromBlocksPerTick, String id)
 	{
 		this.conversionFromBlocksPerTick = conversionFromBlocksPerTick;
 		this.name = StatCollector.translateToLocal("squeedometer.unit." + id);
+		
+		if (StatCollector.func_94522_b("squeedometer.unit.min." + id)) // hasTranslateKey
+			this.minimalName = StatCollector.translateToLocal("squeedometer.unit.min." + id);
+		else
+			this.minimalName = name;
+		
 		this.id = id;
 		units.add(this);
 	}
