@@ -1,5 +1,6 @@
 package squeek.speedometer.gui.widget;
 
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import squeek.speedometer.gui.GuiEvent;
@@ -55,7 +56,7 @@ public class WidgetButton extends WidgetBase
 	{
 		if (isEnabled() && isVisible() && isMouseInsideBounds(mouseX, mouseY))
 		{
-			this.mc.sndManager.playSoundFX("random.click", 1.0F, 1.0F);
+	        this.mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
 			onClicked(type, isShiftKeyDown);
 		}
 		else

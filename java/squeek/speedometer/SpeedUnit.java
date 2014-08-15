@@ -20,7 +20,7 @@ public enum SpeedUnit
 		this.conversionFromBlocksPerTick = conversionFromBlocksPerTick;
 		this.name = StatCollector.translateToLocal("squeedometer.unit." + id);
 		
-		if (StatCollector.func_94522_b("squeedometer.unit.min." + id)) // hasTranslateKey
+		if (StatCollector.canTranslate("squeedometer.unit.min." + id))
 			this.minimalName = StatCollector.translateToLocal("squeedometer.unit.min." + id);
 		else
 			this.minimalName = name;

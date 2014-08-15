@@ -1,8 +1,7 @@
 package squeek.speedometer;
 
-import squeek.speedometer.ModInfo;
 import net.minecraftforge.common.MinecraftForge;
-import cpw.mods.fml.client.registry.KeyBindingRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -29,7 +28,7 @@ public class ModSpeedometer
 	@SideOnly(Side.CLIENT)
 	public void load(FMLInitializationEvent event)
 	{
-		KeyBindingRegistry.registerKeyBinding(new SpeedometerKeyHandler());
+		FMLCommonHandler.instance().bus().register(new SpeedometerKeyHandler());
 	}
 
 	@EventHandler

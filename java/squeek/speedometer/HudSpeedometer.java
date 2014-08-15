@@ -1,13 +1,14 @@
 package squeek.speedometer;
 
+import java.lang.reflect.Constructor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.event.ForgeSubscribe;
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class HudSpeedometer extends Gui
 {
@@ -24,6 +25,18 @@ public class HudSpeedometer extends Gui
 	private boolean wasFirstJump = true;
 
 	private double currentSpeed = 0.0D;
+	
+	private static Constructor<ScaledResolution> scaledResolution1710Constructor = null;
+	static
+	{
+		try
+		{
+			scaledResolution1710Constructor = ScaledResolution.class.getConstructor(Minecraft.class, int.class, int.class);
+		}
+		catch(Exception e)
+		{
+		}
+	}
 
 	public static void setDidJumpThisTick(boolean val)
 	{
@@ -35,7 +48,7 @@ public class HudSpeedometer extends Gui
 		isJumping = val;
 	}
 
-	@ForgeSubscribe
+	@SubscribeEvent
 	public void onRenderExperienceBar(RenderGameOverlayEvent.Pre event)
 	{
 		if (event.type != ElementType.HOTBAR)
@@ -59,7 +72,21 @@ public class HudSpeedometer extends Gui
 
 	private void draw()
 	{
-		final ScaledResolution scaledresolution = new ScaledResolution(HudSpeedometer.mc.gameSettings, HudSpeedometer.mc.displayWidth, HudSpeedometer.mc.displayHeight);
+		// in 1.7.10, the ScaledResolution constructor changed; allow for either one
+		ScaledResolution scaledresolution;
+		if (scaledResolution1710Constructor != null)
+		{
+			try
+			{
+				scaledresolution = scaledResolution1710Constructor.newInstance(mc, mc.displayWidth, mc.displayHeight);
+			}
+			catch(Exception e)
+			{
+				return;
+			}
+		}
+		else
+			scaledresolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
 
 		boolean drawCurrentSpeed = true;
 		boolean drawJumpSpeedChanged = lastJumpSpeed != 0 && showingLastJumpInfo();

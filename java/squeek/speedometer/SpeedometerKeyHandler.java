@@ -1,33 +1,25 @@
 package squeek.speedometer;
 
-import java.util.EnumSet;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
 import squeek.speedometer.gui.screen.ScreenSpeedometerSettings;
-import cpw.mods.fml.client.registry.KeyBindingRegistry.KeyHandler;
-import cpw.mods.fml.common.TickType;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 
-public class SpeedometerKeyHandler extends KeyHandler
+public class SpeedometerKeyHandler
 {
-	private static final KeyBinding SETTINGS_KEY = new KeyBinding("squeedometer.key.settings", Keyboard.KEY_P);
-	private static final KeyBinding[] KEYS = new KeyBinding[]{SETTINGS_KEY};
-	private static final boolean[] REPEAT = new boolean[]{false};
-
-	public SpeedometerKeyHandler()
+	private static final KeyBinding SETTINGS_KEY = new KeyBinding("squeedometer.key.settings", Keyboard.KEY_P, ModInfo.MODID);
+	static
 	{
-		super(KEYS, REPEAT);
+		ClientRegistry.registerKeyBinding(SETTINGS_KEY);
 	}
 
-	@Override
-	public void keyDown(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat)
+	@SubscribeEvent
+	public void onKeyEvent(KeyInputEvent event)
 	{
-		if (!tickEnd)
-		{
-			return;
-		}
-
-		if (kb == SETTINGS_KEY)
+		if (Keyboard.getEventKeyState() && Keyboard.getEventKey() == SETTINGS_KEY.getKeyCode())
 		{
 			Minecraft mc = Minecraft.getMinecraft();
 
@@ -36,22 +28,5 @@ public class SpeedometerKeyHandler extends KeyHandler
 
 			mc.displayGuiScreen(new ScreenSpeedometerSettings());
 		}
-	}
-
-	@Override
-	public void keyUp(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd)
-	{
-	}
-
-	@Override
-	public EnumSet<TickType> ticks()
-	{
-		return EnumSet.of(TickType.CLIENT);
-	}
-
-	@Override
-	public String getLabel()
-	{
-		return getClass().getSimpleName();
 	}
 }
