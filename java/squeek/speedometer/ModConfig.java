@@ -47,7 +47,7 @@ public class ModConfig
 
 	public static Property MINIMAL_UNITS;
 	private static final String MINIMAL_UNITS_NAME = "minimalUnits";
-	public static final boolean MINIMAL_UNITS_DEFAULT = true;
+	public static final boolean MINIMAL_UNITS_DEFAULT = false;
 
 	public static Property LAST_JUMP_INFO_ENABLED;
 	private static final String LAST_JUMP_INFO_ENABLED_NAME = "lastJumpInfoEnabled";
