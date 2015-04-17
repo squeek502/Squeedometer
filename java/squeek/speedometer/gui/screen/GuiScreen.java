@@ -1,5 +1,6 @@
 package squeek.speedometer.gui.screen;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import squeek.speedometer.gui.GuiEvent;
@@ -111,24 +112,21 @@ public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGu
 	}
 
 	@Override
-	protected void mouseClicked(int mouseX, int mouseY, int type)
-	{
+	protected void mouseClicked(int mouseX, int mouseY, int type) throws IOException {
 		for (IWidget child : this.children)
 			child.mouseClicked(mouseX, mouseY, type, isShiftKeyDown());
 		super.mouseClicked(mouseX, mouseY, type);
 	}
 
 	@Override
-	public void handleMouseInput()
-	{
+	public void handleMouseInput() throws IOException {
 		for (IWidget child : this.children)
 			child.handleMouseInput();
 		super.handleMouseInput();
 	}
 
 	@Override
-	protected void keyTyped(char c, int i)
-	{
+	protected void keyTyped(char c, int i) throws IOException {
 		for (IWidget child : this.children)
 		{
 			if (child.keyTyped(c, i))
