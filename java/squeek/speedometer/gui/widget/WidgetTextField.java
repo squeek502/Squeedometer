@@ -12,7 +12,7 @@ public class WidgetTextField extends WidgetBase
 	public WidgetTextField(IGuiHierarchical parent, int x, int y, int w, int h)
 	{
 		super(parent, x, y, w, h);
-		this.textField = new GuiTextField(mc.fontRenderer, getX(), getY(), getWidth(), getHeight());
+		this.textField = new GuiTextField(mc.fontRendererObj, getX(), getY(), getWidth(), getHeight());
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class WidgetTextField extends WidgetBase
 			// seriously have to recreate the GuiTextField ...
 			if (this.textField != null)
 			{
-				this.textField = new GuiTextField(mc.fontRenderer, x, y, w, h);
+				this.textField = new GuiTextField(mc.fontRendererObj, x, y, w, h);
 			}
 		}
 		super.onGuiEvent(event, source, data);
