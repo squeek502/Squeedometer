@@ -6,8 +6,8 @@ import squeek.speedometer.gui.GuiEvent;
 import squeek.speedometer.gui.IGuiEventHandler;
 import squeek.speedometer.gui.IGuiHierarchical;
 import squeek.speedometer.gui.widget.IWidget;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGuiHierarchical, IGuiEventHandler
