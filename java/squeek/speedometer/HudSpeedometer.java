@@ -86,7 +86,7 @@ public class HudSpeedometer extends Gui
 			}
 		}
 		else
-			scaledresolution = new ScaledResolution(mc.gameSettings, mc.displayWidth, mc.displayHeight);
+			scaledresolution = new ScaledResolution(mc.getMinecraft(), mc.displayWidth, mc.displayHeight);
 
 		boolean drawCurrentSpeed = true;
 		boolean drawJumpSpeedChanged = lastJumpSpeed != 0 && showingLastJumpInfo();
