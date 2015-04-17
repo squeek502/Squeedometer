@@ -56,7 +56,7 @@ public class WidgetButton extends WidgetBase
 	{
 		if (isEnabled() && isVisible() && isMouseInsideBounds(mouseX, mouseY))
 		{
-	        this.mc.getSoundHandler().playSound(PositionedSoundRecord.func_147674_a(new ResourceLocation("gui.button.press"), 1.0F));
+	        this.mc.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
 			onClicked(type, isShiftKeyDown);
 		}
 		else
