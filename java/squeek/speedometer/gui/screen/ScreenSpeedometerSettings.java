@@ -8,7 +8,7 @@ import squeek.speedometer.SpeedUnit;
 import squeek.speedometer.gui.GuiEvent;
 import squeek.speedometer.gui.IGuiHierarchical;
 import squeek.speedometer.gui.widget.*;
-import cpw.mods.fml.common.Loader;
+import net.minecraftforge.fml.common.Loader;
 
 public class ScreenSpeedometerSettings extends GuiScreen
 {

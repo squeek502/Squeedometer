@@ -14,14 +14,14 @@ public class WidgetLabel extends WidgetBase
 	{
 		super(parent, x, y);
 		this.text = text;
-		this.setSize(mc.fontRenderer.getStringWidth(this.text), mc.fontRenderer.FONT_HEIGHT);
+		this.setSize(mc.fontRendererObj.getStringWidth(this.text), mc.fontRendererObj.FONT_HEIGHT);
 	}
 
 	public WidgetLabel(IGuiHierarchical parent, int x, int y, String text, int color, boolean drawShadow)
 	{
 		super(parent, x, y);
 		this.text = text;
-		this.setSize(mc.fontRenderer.getStringWidth(this.text), mc.fontRenderer.FONT_HEIGHT);
+		this.setSize(mc.fontRendererObj.getStringWidth(this.text), mc.fontRendererObj.FONT_HEIGHT);
 		this.color = color;
 		this.drawShadow = drawShadow;
 	}
@@ -35,11 +35,11 @@ public class WidgetLabel extends WidgetBase
 			int y = this.y;
 			if (drawCentered)
 			{
-				x -= mc.fontRenderer.getStringWidth(this.text) / 2;
-				y -= mc.fontRenderer.FONT_HEIGHT / 2;
+				x -= mc.fontRendererObj.getStringWidth(this.text) / 2;
+				y -= mc.fontRendererObj.FONT_HEIGHT / 2;
 			}
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			mc.fontRenderer.drawString(this.text, x, y, this.color, this.drawShadow);
+			mc.fontRendererObj.func_175065_a(this.text, x, y, this.color, this.drawShadow);
 		}
 		super.drawForeground(mouseX, mouseY);
 	}

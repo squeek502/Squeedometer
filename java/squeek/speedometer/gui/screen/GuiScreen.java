@@ -1,13 +1,14 @@
 package squeek.speedometer.gui.screen;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import squeek.speedometer.gui.GuiEvent;
 import squeek.speedometer.gui.IGuiEventHandler;
 import squeek.speedometer.gui.IGuiHierarchical;
 import squeek.speedometer.gui.widget.IWidget;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGuiHierarchical, IGuiEventHandler
@@ -111,7 +112,7 @@ public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGu
 	}
 
 	@Override
-	protected void mouseClicked(int mouseX, int mouseY, int type)
+	protected void mouseClicked(int mouseX, int mouseY, int type) throws IOException
 	{
 		for (IWidget child : this.children)
 			child.mouseClicked(mouseX, mouseY, type, isShiftKeyDown());
@@ -119,7 +120,7 @@ public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGu
 	}
 
 	@Override
-	public void handleMouseInput()
+	public void handleMouseInput() throws IOException
 	{
 		for (IWidget child : this.children)
 			child.handleMouseInput();
@@ -127,7 +128,7 @@ public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGu
 	}
 
 	@Override
-	protected void keyTyped(char c, int i)
+	protected void keyTyped(char c, int i) throws IOException
 	{
 		for (IWidget child : this.children)
 		{
