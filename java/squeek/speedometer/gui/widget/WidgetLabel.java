@@ -39,7 +39,7 @@ public class WidgetLabel extends WidgetBase
 				y -= mc.fontRendererObj.FONT_HEIGHT / 2;
 			}
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			mc.fontRendererObj.func_175065_a(this.text, x, y, this.color, this.drawShadow);
+			mc.fontRendererObj.drawString(this.text, x, y, this.color, this.drawShadow);
 		}
 		super.drawForeground(mouseX, mouseY);
 	}
