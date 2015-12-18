@@ -26,6 +26,18 @@ public class HudSpeedometer extends Gui
 
 	private double currentSpeed = 0.0D;
 
+	private static Constructor<ScaledResolution> scaledResolution188Constructor = null;
+	static
+	{
+		try
+		{
+			scaledResolution188Constructor = ScaledResolution.class.getConstructor(Minecraft.class);
+		}
+		catch(Exception e)
+		{
+		}
+	}
+
 	public static void setDidJumpThisTick(boolean val)
 	{
 		didJumpThisTick = val;
@@ -60,7 +72,21 @@ public class HudSpeedometer extends Gui
 
 	private void draw()
 	{
-		ScaledResolution scaledresolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+		// in 1.8.8, the ScaledResolution constructor changed; allow for either one
+		ScaledResolution scaledresolution;
+		if (scaledResolution188Constructor != null)
+		{
+			try
+			{
+				scaledresolution = scaledResolution188Constructor.newInstance(mc);
+			}
+			catch(Exception e)
+			{
+				return;
+			}
+		}
+		else
+			scaledresolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
 
 		boolean drawCurrentSpeed = true;
 		boolean drawJumpSpeedChanged = lastJumpSpeed != 0 && showingLastJumpInfo();
