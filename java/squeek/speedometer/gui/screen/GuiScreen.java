@@ -1,14 +1,15 @@
 package squeek.speedometer.gui.screen;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import squeek.speedometer.gui.GuiEvent;
 import squeek.speedometer.gui.IGuiEventHandler;
 import squeek.speedometer.gui.IGuiHierarchical;
 import squeek.speedometer.gui.widget.IWidget;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGuiHierarchical, IGuiEventHandler
@@ -72,9 +73,9 @@ public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGu
 	}
 
 	@Override
-	public void drawScreen(int mouseX, int mouseY, float f)
+	public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	{
-		super.drawScreen(mouseX, mouseY, f);
+		super.drawScreen(mouseX, mouseY, partialTicks);
 
 		for (IWidget child : this.children)
 		{

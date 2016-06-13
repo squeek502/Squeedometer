@@ -1,6 +1,6 @@
 package squeek.speedometer;
 
-import net.minecraft.util.StatCollector;
+import net.minecraft.client.resources.I18n;
 
 public enum SpeedUnit
 {
@@ -18,10 +18,10 @@ public enum SpeedUnit
 	private SpeedUnit(float conversionFromBlocksPerTick, String id)
 	{
 		this.conversionFromBlocksPerTick = conversionFromBlocksPerTick;
-		this.name = StatCollector.translateToLocal("squeedometer.unit." + id);
+		this.name = I18n.format("squeedometer.unit." + id);
 		
-		if (StatCollector.canTranslate("squeedometer.unit.min." + id))
-			this.minimalName = StatCollector.translateToLocal("squeedometer.unit.min." + id);
+		if (I18n.hasKey("squeedometer.unit.min." + id))
+			this.minimalName = I18n.format("squeedometer.unit.min." + id);
 		else
 			this.minimalName = name;
 		

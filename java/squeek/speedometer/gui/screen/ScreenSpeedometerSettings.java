@@ -1,14 +1,14 @@
 package squeek.speedometer.gui.screen;
 
 import net.minecraft.client.gui.Gui;
-import net.minecraft.util.StatCollector;
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
+import net.minecraftforge.fml.common.Loader;
 import squeek.speedometer.ModConfig;
 import squeek.speedometer.SpeedUnit;
 import squeek.speedometer.gui.GuiEvent;
 import squeek.speedometer.gui.IGuiHierarchical;
 import squeek.speedometer.gui.widget.*;
-import net.minecraftforge.fml.common.Loader;
 
 public class ScreenSpeedometerSettings extends GuiScreen
 {
@@ -59,7 +59,7 @@ public class ScreenSpeedometerSettings extends GuiScreen
 		{
 			if (isVisible())
 			{
-				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+				GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 				boolean hovered = isMouseInsideBounds(mouseX, mouseY);
 				Gui.drawRect(x, y, x + w, y + h, isHighlighted ? highlightColor : innerColor);
 				Gui.drawRect(x + 1, y + 1, x + w - 1, y + h - 1, !isEnabled() ? disabledColor : (hovered ? hoverColor : buttonColor));
@@ -83,10 +83,10 @@ public class ScreenSpeedometerSettings extends GuiScreen
 		int topY = Math.max(padding, height / 6 - rowHeight);
 		int bottomY = height - buttonHeight - Math.max(padding, height / 8 - rowHeight); //buttonHeight - padding * 2;
 
-		new WidgetLabel(this, midX, topY + fontRendererObj.FONT_HEIGHT / 2, StatCollector.translateToLocal("squeedometer.settings.title"), 0xFFFFFF, true);
+		new WidgetLabel(this, midX, topY + fontRendererObj.FONT_HEIGHT / 2, I18n.format("squeedometer.settings.title"), 0xFFFFFF, true);
 
-		saveButton = new WidgetButton(this, midX - buttonWidth - padding, bottomY, buttonWidth, buttonHeight, StatCollector.translateToLocal("squeedometer.settings.save"));
-		cancelButton = new WidgetButton(this, midX + padding, bottomY, buttonWidth, buttonHeight, StatCollector.translateToLocal("squeedometer.settings.cancel"));
+		saveButton = new WidgetButton(this, midX - buttonWidth - padding, bottomY, buttonWidth, buttonHeight, I18n.format("squeedometer.settings.save"));
+		cancelButton = new WidgetButton(this, midX + padding, bottomY, buttonWidth, buttonHeight, I18n.format("squeedometer.settings.cancel"));
 
 		topY += fontRendererObj.FONT_HEIGHT + padding;
 		bottomY -= padding;
@@ -97,20 +97,20 @@ public class ScreenSpeedometerSettings extends GuiScreen
 
 		WidgetWrapper positionSettings = new WidgetWrapper(fluidGrid);
 		xField = new WidgetTextField(positionSettings, 0, fontRendererObj.FONT_HEIGHT + padding, halfColWidth, rowHeight);
-		new WidgetLabel(positionSettings, 0, 0, StatCollector.translateToLocal("squeedometer.settings.x")).drawCentered = false;
+		new WidgetLabel(positionSettings, 0, 0, I18n.format("squeedometer.settings.x")).drawCentered = false;
 		yField = new WidgetTextField(positionSettings, halfColWidth + padding, fontRendererObj.FONT_HEIGHT + padding, halfColWidth, rowHeight);
-		new WidgetLabel(positionSettings, halfColWidth + padding, 0, StatCollector.translateToLocal("squeedometer.settings.y")).drawCentered = false;
+		new WidgetLabel(positionSettings, halfColWidth + padding, 0, I18n.format("squeedometer.settings.y")).drawCentered = false;
 
 		WidgetWrapper layoutSettings = new WidgetWrapper(fluidGrid);
 		marginField = new WidgetTextField(layoutSettings, 0, fontRendererObj.FONT_HEIGHT + padding, halfColWidth, rowHeight);
-		new WidgetLabel(layoutSettings, 0, 0, StatCollector.translateToLocal("squeedometer.settings.margin")).drawCentered = false;
+		new WidgetLabel(layoutSettings, 0, 0, I18n.format("squeedometer.settings.margin")).drawCentered = false;
 		paddingField = new WidgetTextField(layoutSettings, halfColWidth + padding, fontRendererObj.FONT_HEIGHT + padding, halfColWidth, rowHeight);
-		new WidgetLabel(layoutSettings, halfColWidth + padding, 0, StatCollector.translateToLocal("squeedometer.settings.padding")).drawCentered = false;
+		new WidgetLabel(layoutSettings, halfColWidth + padding, 0, I18n.format("squeedometer.settings.padding")).drawCentered = false;
 
 		int alignBoxTop = fontRendererObj.FONT_HEIGHT + padding;
 		int alignBoxHeight = buttonHeight * 2 + 6;
 		alignmentSettings = new WidgetWrapper(fluidGrid);
-		new WidgetLabel(alignmentSettings, 0, 0, StatCollector.translateToLocal("squeedometer.settings.screenalign")).drawCentered = false;
+		new WidgetLabel(alignmentSettings, 0, 0, I18n.format("squeedometer.settings.screenalign")).drawCentered = false;
 		new WidgetBox(alignmentSettings, 0, alignBoxTop, colWidth, alignBoxHeight);
 		new WidgetScreenAlignment(alignmentSettings, 0, alignBoxTop, alignButtonDimensions, alignButtonDimensions, "left", "top");
 		new WidgetScreenAlignment(alignmentSettings, colWidth / 2 - alignButtonDimensions / 2, alignBoxTop, alignButtonDimensions, alignButtonDimensions, "center", "top");
@@ -133,13 +133,13 @@ public class ScreenSpeedometerSettings extends GuiScreen
 
 		WidgetWrapper precisionSettings = new WidgetWrapper(fluidGrid);
 		precisionField = new WidgetTextField(precisionSettings, 0, fontRendererObj.FONT_HEIGHT + padding, colWidth, rowHeight);
-		new WidgetLabel(precisionSettings, 0, 0, StatCollector.translateToLocal("squeedometer.settings.precision")).drawCentered = false;
+		new WidgetLabel(precisionSettings, 0, 0, I18n.format("squeedometer.settings.precision")).drawCentered = false;
 
 		if (!Loader.isModLoaded("Squake"))
 		{
 			lastJumpButton.setEnabled(false);
 			lastJumpFloatButton.setEnabled(false);
-			jumpInfoButtons.setTooltipString(StatCollector.translateToLocal("squeedometer.needs.squake"));
+			jumpInfoButtons.setTooltipString(I18n.format("squeedometer.needs.squake"));
 		}
 
 		fluidGrid.determineLayout();
@@ -149,11 +149,11 @@ public class ScreenSpeedometerSettings extends GuiScreen
 
 	private void setWidgetValuesFromConfig()
 	{
-		lastJumpButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.lastjump", ModConfig.LAST_JUMP_INFO_ENABLED.getBoolean(true) ? StatCollector.translateToLocal("squeedometer.settings.on") : StatCollector.translateToLocal("squeedometer.settings.off")));
-		lastJumpFloatButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.lastjump.float", ModConfig.LAST_JUMP_INFO_FLOAT_ENABLED.getBoolean(true) ? StatCollector.translateToLocal("squeedometer.settings.on") : StatCollector.translateToLocal("squeedometer.settings.off")));
-		unitsButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.units", ModConfig.SPEED_UNIT.toString()));
-		backgroundButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.background", ModConfig.SPEEDOMETER_DRAW_BACKGROUND.getBoolean(true) ? StatCollector.translateToLocal("squeedometer.settings.on") : StatCollector.translateToLocal("squeedometer.settings.off")));
-		showUnitsButton.setLabelText(StatCollector.translateToLocalFormatted("squeedometer.settings.show.units", ModConfig.SHOW_UNITS.getBoolean(true) ? ModConfig.MINIMAL_UNITS.getBoolean(true) ? StatCollector.translateToLocal("squeedometer.settings.minimal") : StatCollector.translateToLocal("squeedometer.settings.on") : StatCollector.translateToLocal("squeedometer.settings.off")));
+		lastJumpButton.setLabelText(I18n.format("squeedometer.settings.lastjump", ModConfig.LAST_JUMP_INFO_ENABLED.getBoolean(true) ? I18n.format("squeedometer.settings.on") : I18n.format("squeedometer.settings.off")));
+		lastJumpFloatButton.setLabelText(I18n.format("squeedometer.settings.lastjump.float", ModConfig.LAST_JUMP_INFO_FLOAT_ENABLED.getBoolean(true) ? I18n.format("squeedometer.settings.on") : I18n.format("squeedometer.settings.off")));
+		unitsButton.setLabelText(I18n.format("squeedometer.settings.units", ModConfig.SPEED_UNIT.toString()));
+		backgroundButton.setLabelText(I18n.format("squeedometer.settings.background", ModConfig.SPEEDOMETER_DRAW_BACKGROUND.getBoolean(true) ? I18n.format("squeedometer.settings.on") : I18n.format("squeedometer.settings.off")));
+		showUnitsButton.setLabelText(I18n.format("squeedometer.settings.show.units", ModConfig.SHOW_UNITS.getBoolean(true) ? ModConfig.MINIMAL_UNITS.getBoolean(true) ? I18n.format("squeedometer.settings.minimal") : I18n.format("squeedometer.settings.on") : I18n.format("squeedometer.settings.off")));
 		xField.setText(String.valueOf(ModConfig.SPEEDOMETER_XPOS.getInt(0)));
 		yField.setText(String.valueOf(ModConfig.SPEEDOMETER_YPOS.getInt(0)));
 		marginField.setText(String.valueOf(ModConfig.SPEEDOMETER_MARGIN.getInt(0)));
@@ -177,7 +177,7 @@ public class ScreenSpeedometerSettings extends GuiScreen
 	{
 		drawDefaultBackground();
 		super.drawScreen(mouseX, mouseY, f);
-		GL11.glDisable(GL11.GL_LIGHTING);
+		GlStateManager.disableLighting();
 	}
 
 	@Override

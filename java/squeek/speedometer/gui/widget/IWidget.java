@@ -1,8 +1,9 @@
 package squeek.speedometer.gui.widget;
 
-import java.util.List;
 import squeek.speedometer.gui.IGuiEventHandler;
 import squeek.speedometer.gui.IGuiHierarchical;
+
+import java.util.List;
 
 public interface IWidget extends IGuiHierarchical, IGuiEventHandler
 {

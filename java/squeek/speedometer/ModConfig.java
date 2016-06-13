@@ -1,13 +1,16 @@
 package squeek.speedometer;
 
-import java.io.File;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.io.File;
 
 public class ModConfig
 {
 
-	private static final String CATEGORY_SPEEDOMETER = "speedometer";
+	public static final String CATEGORY_SPEEDOMETER = "speedometer";
 
 	public static Property SPEEDOMETER_ALIGNMENT_X;
 	private static final String SPEEDOMETER_ALIGNMENT_X_NAME = "xAlign";
@@ -66,15 +69,15 @@ public class ModConfig
 	private static final String SPEED_UNIT_NAME = "speedUnit";
 	public static final String SPEED_UNIT_DEFAULT = "bps";
 
-	private static Configuration config;
+	public static Configuration config;
 
 	public static void init(File file)
 	{
-		config = new Configuration(file);
-
-		load();
-
-		save();
+		if (config == null)
+		{
+			config = new Configuration(file);
+			load();
+		}
 	}
 
 	public static void save()
@@ -85,8 +88,6 @@ public class ModConfig
 
 	public static void load()
 	{
-		config.load();
-
 		SPEEDOMETER_ALIGNMENT_X = config.get(CATEGORY_SPEEDOMETER, SPEEDOMETER_ALIGNMENT_X_NAME, SPEEDOMETER_ALIGNMENT_X_DEFAULT);
 		SPEEDOMETER_ALIGNMENT_Y = config.get(CATEGORY_SPEEDOMETER, SPEEDOMETER_ALIGNMENT_Y_NAME, SPEEDOMETER_ALIGNMENT_Y_DEFAULT);
 
@@ -109,6 +110,8 @@ public class ModConfig
 		SPEED_UNIT_PROPERTY = config.get(CATEGORY_SPEEDOMETER, SPEED_UNIT_NAME, SPEED_UNIT_DEFAULT, "valid units: bpt (blocks/tick), bps (blocks/sec), ms (meters/sec), kmh  (km/hour), mph (miles/hour)");
 		String speedUnitId = SPEED_UNIT_PROPERTY.getString();
 		setSpeedUnit(speedUnitId);
+
+		save();
 	}
 
 	public static void setSpeedUnit(String speedUnitId)
@@ -124,5 +127,12 @@ public class ModConfig
 			SPEED_UNIT = speedUnit;
 
 		SPEED_UNIT_PROPERTY.set(SPEED_UNIT.getId());
+	}
+
+	@SubscribeEvent
+	public void onConfigurationChangedEvent(ConfigChangedEvent.OnConfigChangedEvent event) {
+		if (event.getModID().equalsIgnoreCase(ModInfo.MODID)) {
+			load();
+		}
 	}
 }
