@@ -85,19 +85,19 @@ public class WidgetTextField extends WidgetBase
 		textField.updateCursorCounter();
 	}
 
-	public void deleteWords(int par1)
+	public void deleteWords(int num)
 	{
-		textField.deleteWords(par1);
+		textField.deleteWords(num);
 	}
 
-	public void deleteFromCursor(int par1)
+	public void deleteFromCursor(int num)
 	{
-		textField.deleteFromCursor(par1);
+		textField.deleteFromCursor(num);
 	}
 
-	public void setText(String par1Str)
+	public void setText(String text)
 	{
-		textField.setText(par1Str);
+		textField.setText(text);
 	}
 
 	public String getText()
@@ -110,34 +110,34 @@ public class WidgetTextField extends WidgetBase
 		return textField.getSelectedText();
 	}
 
-	public void writeText(String par1Str)
+	public void writeText(String textToWrite)
 	{
-		textField.writeText(par1Str);
+		textField.writeText(textToWrite);
 	}
 
-	public int getNthWordFromCursor(int par1)
+	public int getNthWordFromCursor(int numWords)
 	{
-		return textField.getNthWordFromCursor(par1);
+		return textField.getNthWordFromCursor(numWords);
 	}
 
-	public int getNthWordFromPos(int par1, int par2)
+	public int getNthWordFromPos(int n, int pos)
 	{
-		return textField.getNthWordFromPos(par1, par2);
+		return textField.getNthWordFromPos(n, pos);
 	}
 
-	public int func_73798_a(int par1, int par2, boolean par3)
+	public int getNthWordFromPos(int n, int pos, boolean skipWs)
 	{
-		return textField.func_146197_a(par1, par2, par3);
+		return textField.getNthWordFromPosWS(n, pos, skipWs);
 	}
 
-	public void moveCursorBy(int par1)
+	public void moveCursorBy(int num)
 	{
-		textField.moveCursorBy(par1);
+		textField.moveCursorBy(num);
 	}
 
-	public void setCursorPosition(int par1)
+	public void setCursorPosition(int pos)
 	{
-		textField.setCursorPosition(par1);
+		textField.setCursorPosition(pos);
 	}
 
 	public void setCursorPositionZero()
@@ -150,9 +150,9 @@ public class WidgetTextField extends WidgetBase
 		textField.setCursorPositionEnd();
 	}
 
-	public void setMaxStringLength(int par1)
+	public void setMaxStringLength(int length)
 	{
-		textField.setMaxStringLength(par1);
+		textField.setMaxStringLength(length);
 	}
 
 	public int getMaxStringLength()
@@ -170,24 +170,24 @@ public class WidgetTextField extends WidgetBase
 		return textField.getEnableBackgroundDrawing();
 	}
 
-	public void setEnableBackgroundDrawing(boolean par1)
+	public void setEnableBackgroundDrawing(boolean enableBackgroundDrawing)
 	{
-		textField.setEnableBackgroundDrawing(par1);
+		textField.setEnableBackgroundDrawing(enableBackgroundDrawing);
 	}
 
-	public void setTextColor(int par1)
+	public void setTextColor(int color)
 	{
-		textField.setTextColor(par1);
+		textField.setTextColor(color);
 	}
 
-	public void setDisabledTextColour(int par1)
+	public void setDisabledTextColour(int color)
 	{
-		textField.setDisabledTextColour(par1);
+		textField.setDisabledTextColour(color);
 	}
 
-	public void setFocused(boolean par1)
+	public void setFocused(boolean isFocused)
 	{
-		textField.setFocused(par1);
+		textField.setFocused(isFocused);
 	}
 
 	public boolean isFocused()
@@ -196,10 +196,10 @@ public class WidgetTextField extends WidgetBase
 	}
 
 	@Override
-	public void setEnabled(boolean par1)
+	public void setEnabled(boolean enabled)
 	{
-		this.setEnabled(par1);
-		textField.setEnabled(par1);
+		this.setEnabled(enabled);
+		textField.setEnabled(enabled);
 	}
 
 	public int getSelectionEnd()
@@ -214,14 +214,14 @@ public class WidgetTextField extends WidgetBase
 	}
 	*/
 
-	public void setSelectionPos(int par1)
+	public void setSelectionPos(int position)
 	{
-		textField.setSelectionPos(par1);
+		textField.setSelectionPos(position);
 	}
 
-	public void setCanLoseFocus(boolean par1)
+	public void setCanLoseFocus(boolean canLoseFocus)
 	{
-		textField.setCanLoseFocus(par1);
+		textField.setCanLoseFocus(canLoseFocus);
 	}
 
 	public boolean getTextFieldVisible()
@@ -229,9 +229,9 @@ public class WidgetTextField extends WidgetBase
 		return textField.getVisible();
 	}
 
-	public void setTextFieldVisible(boolean par1)
+	public void setTextFieldVisible(boolean isVisible)
 	{
-		textField.setVisible(par1);
+		textField.setVisible(isVisible);
 	}
 
 	// End delegate methods

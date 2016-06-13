@@ -1,6 +1,6 @@
 package squeek.speedometer.gui.widget;
 
-import org.lwjgl.opengl.GL11;
+import net.minecraft.client.renderer.GlStateManager;
 import squeek.speedometer.gui.IGuiHierarchical;
 
 public class WidgetLabel extends WidgetBase
@@ -38,7 +38,7 @@ public class WidgetLabel extends WidgetBase
 				x -= mc.fontRendererObj.getStringWidth(this.text) / 2;
 				y -= mc.fontRendererObj.FONT_HEIGHT / 2;
 			}
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			mc.fontRendererObj.drawString(this.text, x, y, this.color, this.drawShadow);
 		}
 		super.drawForeground(mouseX, mouseY);

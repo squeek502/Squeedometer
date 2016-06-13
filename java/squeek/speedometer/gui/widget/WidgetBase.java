@@ -1,13 +1,14 @@
 package squeek.speedometer.gui.widget;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import squeek.speedometer.gui.GuiEvent;
 import squeek.speedometer.gui.IGuiEventHandler;
 import squeek.speedometer.gui.IGuiHierarchical;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public abstract class WidgetBase extends Gui implements IWidget, IGuiEventHandler
 {

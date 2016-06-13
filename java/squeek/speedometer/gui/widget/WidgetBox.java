@@ -1,8 +1,8 @@
 package squeek.speedometer.gui.widget;
 
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 import squeek.speedometer.gui.IGuiHierarchical;
 
 public class WidgetBox extends WidgetBase
@@ -37,7 +37,7 @@ public class WidgetBox extends WidgetBase
 		if (texture != null)
 		{
 			mc.getTextureManager().bindTexture(texture);
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			this.drawTexturedModalRect(x, y, textureX, textureY, w, h);
 		}
 		else

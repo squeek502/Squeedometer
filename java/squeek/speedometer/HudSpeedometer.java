@@ -1,14 +1,15 @@
 package squeek.speedometer;
 
-import java.lang.reflect.Constructor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.lang.reflect.Constructor;
 
 public class HudSpeedometer extends Gui
 {
@@ -51,7 +52,7 @@ public class HudSpeedometer extends Gui
 	@SubscribeEvent
 	public void onRenderExperienceBar(RenderGameOverlayEvent.Pre event)
 	{
-		if (event.type != ElementType.HOTBAR)
+		if (event.getType() != ElementType.HOTBAR)
 		{
 			return;
 		}
@@ -86,7 +87,7 @@ public class HudSpeedometer extends Gui
 			}
 		}
 		else
-			scaledresolution = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
+			scaledresolution = new ScaledResolution(mc);
 
 		boolean drawCurrentSpeed = true;
 		boolean drawJumpSpeedChanged = lastJumpSpeed != 0 && showingLastJumpInfo();

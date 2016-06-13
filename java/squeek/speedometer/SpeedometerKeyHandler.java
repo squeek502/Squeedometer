@@ -2,11 +2,11 @@ package squeek.speedometer;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
-import org.lwjgl.input.Keyboard;
-import squeek.speedometer.gui.screen.ScreenSpeedometerSettings;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
+import org.lwjgl.input.Keyboard;
+import squeek.speedometer.gui.screen.ScreenSpeedometerSettings;
 
 public class SpeedometerKeyHandler
 {

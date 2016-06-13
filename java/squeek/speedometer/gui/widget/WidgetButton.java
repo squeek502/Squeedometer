@@ -1,8 +1,9 @@
 package squeek.speedometer.gui.widget;
 
 import net.minecraft.client.audio.PositionedSoundRecord;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 import squeek.speedometer.gui.GuiEvent;
 import squeek.speedometer.gui.IGuiHierarchical;
 
@@ -33,7 +34,7 @@ public class WidgetButton extends WidgetBase
 	public void drawBackground(int mouseX, int mouseY)
 	{
 		mc.getTextureManager().bindTexture(buttonTexture);
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
 		int offsetTextureY = (isEnabled() ? (isMouseInsideBounds(mouseX, mouseY) ? 2 : 1) : 0) * 20;
 		this.drawTexturedModalRect(x, y, textureX, textureY + offsetTextureY, w / 2, h);
@@ -56,7 +57,7 @@ public class WidgetButton extends WidgetBase
 	{
 		if (isEnabled() && isVisible() && isMouseInsideBounds(mouseX, mouseY))
 		{
-	        this.mc.getSoundHandler().playSound(PositionedSoundRecord.create(new ResourceLocation("gui.button.press"), 1.0F));
+	        this.mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
 			onClicked(type, isShiftKeyDown);
 		}
 		else
