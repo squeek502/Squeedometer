@@ -1,6 +1,6 @@
 [
 {
-  "modid": "squeedometer",
+  "modid": "Squeedometer",
   "name": "Squeedometer",
   "description": "A speedometer.",
   "version": "${version}",
