@@ -17,39 +17,18 @@ minecraft {
 	version = "1.9.4-12.17.0.1962"
 	mappings = "snapshot_20160518"
 	runDir = "run"
+
+	replace "\${version}", project.version
+	replaceIn "ModInfo.java"
 }
 
 group = project.projectDir.name.toLowerCase()
 archivesBaseName = project.projectDir.name + "-mc" + project.minecraft.version
 
-sourceSets.main{
-	java {
-		srcDirs 'java', 'apis'
-	}
-	resources {
-		srcDirs 'resources'
-	}
-}
+sourceSets.main.java.srcDirs += 'java'
+sourceSets.main.resources.srcDirs += 'resources'
 
-// variable substitution in java files
-task processSourceMainJava(type:Copy) {
-	inputs.property "vars", project.version + project.minecraft.version
-	from('java')
-	{
-		include '**/ModInfo.java'
-		include '**/package-info.java'
-		expand 'version':project.version, 'mcversion':project.minecraft.version
-	}
-	into project.buildDir.getPath()+"/sources/java"
-}
-
-// correct task ordering
-afterEvaluate { project ->
-	sourceMainJava.finalizedBy(processSourceMainJava)
-}
-
-processResources
-{
+processResources {
 	inputs.property "vars", project.version + project.minecraft.version
 	from(sourceSets.main.resources.srcDirs) {
 		include '**/*.info'
