@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-@Mod(modid = ModInfo.MODID, version = ModInfo.VERSION, clientSideOnly = true, acceptedMinecraftVersions="[1.9,1.10)", guiFactory = ModInfo.GUI_FACTORY_CLASS)
+@Mod(modid = ModInfo.MODID, version = ModInfo.VERSION, clientSideOnly = true, acceptedMinecraftVersions="[1.9,1.11)", guiFactory = ModInfo.GUI_FACTORY_CLASS)
 public class ModSpeedometer
 {
 	@Instance(value = ModInfo.MODID)
