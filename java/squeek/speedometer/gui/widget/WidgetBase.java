@@ -18,7 +18,7 @@ public abstract class WidgetBase extends Gui implements IWidget, IGuiEventHandle
 	public int h = 0;
 	public List<IWidget> children = new ArrayList<IWidget>();
 	protected IGuiHierarchical parent = null;
-	protected Minecraft mc = Minecraft.getMinecraft();
+	protected final Minecraft MC = Minecraft.getMinecraft();
 	protected boolean visible = true;
 	protected boolean enabled = true;
 	protected String tooltipString = null;

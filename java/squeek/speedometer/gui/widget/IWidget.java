@@ -7,39 +7,39 @@ import java.util.List;
 
 public interface IWidget extends IGuiHierarchical, IGuiEventHandler
 {
-	public void setSize(int w, int h);
+	void setSize(int w, int h);
 
-	public void setPos(int x, int y);
+	void setPos(int x, int y);
 
-	public int getWidth();
+	int getWidth();
 
-	public int getHeight();
+	int getHeight();
 
-	public int getX();
+	int getX();
 
-	public int getY();
+	int getY();
 
-	public void setVisible(boolean visible);
+	void setVisible(boolean visible);
 
-	public boolean isVisible();
+	boolean isVisible();
 
-	public void setEnabled(boolean enabled);
+	void setEnabled(boolean enabled);
 
-	public boolean isEnabled();
+	boolean isEnabled();
 
-	public List<String> getTooltip(int mouseX, int mouseY);
+	List<String> getTooltip(int mouseX, int mouseY);
 
-	public void drawForeground(int mouseX, int mouseY);
+	void drawForeground(int mouseX, int mouseY);
 
-	public void drawBackground(int mouseX, int mouseY);
+	void drawBackground(int mouseX, int mouseY);
 
-	public void draw(int mouseX, int mouseY);
+	void draw(int mouseX, int mouseY);
 
-	public void mouseClicked(int mouseX, int mouseY, int type, boolean isShiftKeyDown);
+	void mouseClicked(int mouseX, int mouseY, int type, boolean isShiftKeyDown);
 
-	public boolean keyTyped(char c, int i);
+	boolean keyTyped(char c, int i);
 
-	public void handleMouseInput();
+	void handleMouseInput();
 
-	public void update();
+	void update();
 }

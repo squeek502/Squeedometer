@@ -13,7 +13,7 @@ import java.lang.reflect.Constructor;
 
 public class HudSpeedometer extends Gui
 {
-	private static Minecraft mc = FMLClientHandler.instance().getClient();
+	private static final Minecraft MC = FMLClientHandler.instance().getClient();
 
 	private double firstJumpSpeed = 0.0F;
 	private double lastJumpSpeed = 0.0F;
@@ -34,7 +34,7 @@ public class HudSpeedometer extends Gui
 		{
 			scaledResolution188Constructor = ScaledResolution.class.getConstructor(Minecraft.class);
 		}
-		catch(Exception e)
+		catch(Exception ignored)
 		{
 		}
 	}
@@ -79,7 +79,7 @@ public class HudSpeedometer extends Gui
 		{
 			try
 			{
-				scaledresolution = scaledResolution188Constructor.newInstance(mc);
+				scaledresolution = scaledResolution188Constructor.newInstance(MC);
 			}
 			catch(Exception e)
 			{
@@ -87,7 +87,7 @@ public class HudSpeedometer extends Gui
 			}
 		}
 		else
-			scaledresolution = new ScaledResolution(mc);
+			scaledresolution = new ScaledResolution(MC);
 
 		boolean drawCurrentSpeed = true;
 		boolean drawJumpSpeedChanged = lastJumpSpeed != 0 && showingLastJumpInfo();
@@ -97,8 +97,8 @@ public class HudSpeedometer extends Gui
 		String strCurrentSpeed = drawCurrentSpeed ? String.format(numFormatString + "%s", ModConfig.SPEED_UNIT.convertTo(this.currentSpeed), unitString) : null;
 		String strJumpSpeedChanged = !this.wasFirstJump ? String.format("%+.2f (%+.1f%%)", ModConfig.SPEED_UNIT.convertTo(this.jumpSpeedChanged), ((this.percentJumpSpeedChanged) * 100.0F)) : String.format(numFormatString, ModConfig.SPEED_UNIT.convertTo(this.firstJumpSpeed));
 
-		int width = HudSpeedometer.mc.fontRendererObj.getStringWidth(strCurrentSpeed);
-		int height = HudSpeedometer.mc.fontRendererObj.FONT_HEIGHT;
+		int width = HudSpeedometer.MC.fontRendererObj.getStringWidth(strCurrentSpeed);
+		int height = HudSpeedometer.MC.fontRendererObj.FONT_HEIGHT;
 		int padding = ModConfig.SPEEDOMETER_PADDING.getInt();
 		int margin = ModConfig.SPEEDOMETER_MARGIN.getInt();
 		int xPos = ModConfig.SPEEDOMETER_XPOS.getInt() + margin;
@@ -123,7 +123,7 @@ public class HudSpeedometer extends Gui
 
 		if (drawJumpSpeedChanged && ModConfig.LAST_JUMP_INFO_ENABLED.getBoolean(true))
 		{
-			int stringWidth = HudSpeedometer.mc.fontRendererObj.getStringWidth(strJumpSpeedChanged);
+			int stringWidth = HudSpeedometer.MC.fontRendererObj.getStringWidth(strJumpSpeedChanged);
 			int floatingXPos = xPos + (width / 2) - stringWidth / 2;
 
 			// dont let it go offscreen
@@ -133,32 +133,32 @@ public class HudSpeedometer extends Gui
 				floatingXPos = scaledresolution.getScaledWidth() - stringWidth - margin;
 
 			int floatingYPos = yPos;
-			int floatingYPosOffset = (int) (HudSpeedometer.mc.fontRendererObj.FONT_HEIGHT * 1.75F);
+			int floatingYPosOffset = (int) (HudSpeedometer.MC.fontRendererObj.FONT_HEIGHT * 1.75F);
 			int floatingYPosOffsetDirection = (floatingYPos - floatingYPosOffset < 0) ? 1 : -1;
 			floatingYPos += floatingYPosOffsetDirection * floatingYPosOffset;
 
 			if (ModConfig.LAST_JUMP_INFO_FLOAT_ENABLED.getBoolean(true))
 			{
 				float percentJumpInfoElapsed = lastJumpInfoTimeRemaining() / (float) (ModConfig.LAST_JUMP_INFO_DURATION.getDouble(ModConfig.LAST_JUMP_INFO_DURATION_DEFAULT));
-				floatingYPos += floatingYPosOffsetDirection * (percentJumpInfoElapsed * HudSpeedometer.mc.fontRendererObj.FONT_HEIGHT * 4);
+				floatingYPos += floatingYPosOffsetDirection * (percentJumpInfoElapsed * HudSpeedometer.MC.fontRendererObj.FONT_HEIGHT * 4);
 			}
 			int color = this.wasFirstJump ? 0x2b7bff : (this.jumpSpeedChanged == 0 ? 14737632 : (this.jumpSpeedChanged > 0 ? 1481216 : 10092544));
-			this.drawString(HudSpeedometer.mc.fontRendererObj, strJumpSpeedChanged, floatingXPos, floatingYPos, color);
+			this.drawString(HudSpeedometer.MC.fontRendererObj, strJumpSpeedChanged, floatingXPos, floatingYPos, color);
 		}
 
 		if (drawCurrentSpeed)
 		{
-			this.drawString(HudSpeedometer.mc.fontRendererObj, strCurrentSpeed, xPos, yPos, 14737632);
+			this.drawString(HudSpeedometer.MC.fontRendererObj, strCurrentSpeed, xPos, yPos, 14737632);
 		}
 	}
 
 	private void updateValues()
 	{
-		double distTraveledLastTickX = HudSpeedometer.mc.thePlayer.posX - HudSpeedometer.mc.thePlayer.prevPosX;
-		double distTraveledLastTickZ = HudSpeedometer.mc.thePlayer.posZ - HudSpeedometer.mc.thePlayer.prevPosZ;
+		double distTraveledLastTickX = HudSpeedometer.MC.thePlayer.posX - HudSpeedometer.MC.thePlayer.prevPosX;
+		double distTraveledLastTickZ = HudSpeedometer.MC.thePlayer.posZ - HudSpeedometer.MC.thePlayer.prevPosZ;
 		this.currentSpeed = MathHelper.sqrt_double(distTraveledLastTickX * distTraveledLastTickX + distTraveledLastTickZ * distTraveledLastTickZ);
 
-		if ((showingLastJumpInfo() || didJumpThisTick) && !(HudSpeedometer.mc.thePlayer.onGround && !isJumping))
+		if ((showingLastJumpInfo() || didJumpThisTick) && !(HudSpeedometer.MC.thePlayer.onGround && !isJumping))
 		{
 			if (didJumpThisTick && !this.didJumpLastTick)
 			{

@@ -9,8 +9,8 @@ import squeek.speedometer.gui.IGuiHierarchical;
 
 public class WidgetButton extends WidgetBase
 {
-	protected static final ResourceLocation defaultButtonTexture = new ResourceLocation("textures/gui/widgets.png");
-	protected ResourceLocation buttonTexture = WidgetButton.defaultButtonTexture;
+	protected static final ResourceLocation DEFAULT_BUTTON_TEXTURE = new ResourceLocation("textures/gui/widgets.png");
+	protected ResourceLocation buttonTexture = WidgetButton.DEFAULT_BUTTON_TEXTURE;
 	protected int textureX = 0;
 	protected int textureY = 46;
 	protected WidgetLabel label = null;
@@ -33,7 +33,7 @@ public class WidgetButton extends WidgetBase
 	@Override
 	public void drawBackground(int mouseX, int mouseY)
 	{
-		mc.getTextureManager().bindTexture(buttonTexture);
+		MC.getTextureManager().bindTexture(buttonTexture);
 		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
 		int offsetTextureY = (isEnabled() ? (isMouseInsideBounds(mouseX, mouseY) ? 2 : 1) : 0) * 20;
@@ -57,7 +57,7 @@ public class WidgetButton extends WidgetBase
 	{
 		if (isEnabled() && isVisible() && isMouseInsideBounds(mouseX, mouseY))
 		{
-	        this.mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+	        this.MC.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
 			onClicked(type, isShiftKeyDown);
 		}
 		else

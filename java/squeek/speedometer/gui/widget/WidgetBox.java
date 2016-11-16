@@ -36,7 +36,7 @@ public class WidgetBox extends WidgetBase
 	{
 		if (texture != null)
 		{
-			mc.getTextureManager().bindTexture(texture);
+			MC.getTextureManager().bindTexture(texture);
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 			this.drawTexturedModalRect(x, y, textureX, textureY, w, h);
 		}

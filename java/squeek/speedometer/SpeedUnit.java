@@ -15,7 +15,7 @@ public enum SpeedUnit
 	public final String minimalName;
 	private final String id;
 
-	private SpeedUnit(float conversionFromBlocksPerTick, String id)
+	SpeedUnit(float conversionFromBlocksPerTick, String id)
 	{
 		this.conversionFromBlocksPerTick = conversionFromBlocksPerTick;
 		this.name = I18n.format("squeedometer.unit." + id);

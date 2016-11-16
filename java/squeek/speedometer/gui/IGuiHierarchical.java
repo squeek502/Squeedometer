@@ -6,19 +6,19 @@ import java.util.List;
 
 public interface IGuiHierarchical
 {
-	public void addChild(IWidget child);
+	void addChild(IWidget child);
 
-	public boolean removeChild(IWidget child);
+	boolean removeChild(IWidget child);
 
-	public void addChildren(List<IWidget> children);
+	void addChildren(List<IWidget> children);
 
-	public void removeChildren(List<IWidget> children);
+	void removeChildren(List<IWidget> children);
 
-	public void clearChildren();
+	void clearChildren();
 
-	public IGuiHierarchical getParent();
+	IGuiHierarchical getParent();
 
-	public void setParent(IGuiHierarchical parent);
+	void setParent(IGuiHierarchical parent);
 
-	public IGuiHierarchical getTopMostParent();
+	IGuiHierarchical getTopMostParent();
 }
