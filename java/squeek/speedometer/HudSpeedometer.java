@@ -9,8 +9,6 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.lang.reflect.Constructor;
-
 public class HudSpeedometer extends Gui
 {
 	private static final Minecraft MC = FMLClientHandler.instance().getClient();
@@ -26,18 +24,6 @@ public class HudSpeedometer extends Gui
 	private boolean wasFirstJump = true;
 
 	private double currentSpeed = 0.0D;
-
-	private static Constructor<ScaledResolution> scaledResolution188Constructor = null;
-	static
-	{
-		try
-		{
-			scaledResolution188Constructor = ScaledResolution.class.getConstructor(Minecraft.class);
-		}
-		catch(Exception ignored)
-		{
-		}
-	}
 
 	public static void setDidJumpThisTick(boolean val)
 	{
@@ -73,21 +59,7 @@ public class HudSpeedometer extends Gui
 
 	private void draw()
 	{
-		// in 1.8.8, the ScaledResolution constructor changed; allow for either one
-		ScaledResolution scaledresolution;
-		if (scaledResolution188Constructor != null)
-		{
-			try
-			{
-				scaledresolution = scaledResolution188Constructor.newInstance(MC);
-			}
-			catch(Exception e)
-			{
-				return;
-			}
-		}
-		else
-			scaledresolution = new ScaledResolution(MC);
+		ScaledResolution scaledresolution = new ScaledResolution(MC);
 
 		boolean drawCurrentSpeed = true;
 		boolean drawJumpSpeedChanged = lastJumpSpeed != 0 && showingLastJumpInfo();
