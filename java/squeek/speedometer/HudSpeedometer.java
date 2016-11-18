@@ -126,11 +126,11 @@ public class HudSpeedometer extends Gui
 
 	private void updateValues()
 	{
-		double distTraveledLastTickX = HudSpeedometer.MC.thePlayer.posX - HudSpeedometer.MC.thePlayer.prevPosX;
-		double distTraveledLastTickZ = HudSpeedometer.MC.thePlayer.posZ - HudSpeedometer.MC.thePlayer.prevPosZ;
-		this.currentSpeed = MathHelper.sqrt_double(distTraveledLastTickX * distTraveledLastTickX + distTraveledLastTickZ * distTraveledLastTickZ);
+		double distTraveledLastTickX = HudSpeedometer.MC.player.posX - HudSpeedometer.MC.player.prevPosX;
+		double distTraveledLastTickZ = HudSpeedometer.MC.player.posZ - HudSpeedometer.MC.player.prevPosZ;
+		this.currentSpeed = MathHelper.sqrt(distTraveledLastTickX * distTraveledLastTickX + distTraveledLastTickZ * distTraveledLastTickZ);
 
-		if ((showingLastJumpInfo() || didJumpThisTick) && !(HudSpeedometer.MC.thePlayer.onGround && !isJumping))
+		if ((showingLastJumpInfo() || didJumpThisTick) && !(HudSpeedometer.MC.player.onGround && !isJumping))
 		{
 			if (didJumpThisTick && !this.didJumpLastTick)
 			{
