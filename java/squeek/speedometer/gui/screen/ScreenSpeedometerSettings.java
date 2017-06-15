@@ -83,12 +83,12 @@ public class ScreenSpeedometerSettings extends GuiScreen
 		int topY = Math.max(padding, height / 6 - rowHeight);
 		int bottomY = height - buttonHeight - Math.max(padding, height / 8 - rowHeight); //buttonHeight - padding * 2;
 
-		new WidgetLabel(this, midX, topY + fontRendererObj.FONT_HEIGHT / 2, I18n.format("squeedometer.settings.title"), 0xFFFFFF, true);
+		new WidgetLabel(this, midX, topY + fontRenderer.FONT_HEIGHT / 2, I18n.format("squeedometer.settings.title"), 0xFFFFFF, true);
 
 		saveButton = new WidgetButton(this, midX - buttonWidth - padding, bottomY, buttonWidth, buttonHeight, I18n.format("squeedometer.settings.save"));
 		cancelButton = new WidgetButton(this, midX + padding, bottomY, buttonWidth, buttonHeight, I18n.format("squeedometer.settings.cancel"));
 
-		topY += fontRendererObj.FONT_HEIGHT + padding;
+		topY += fontRenderer.FONT_HEIGHT + padding;
 		bottomY -= padding;
 		int gridHeight = bottomY - topY;
 		int halfColWidth = (colWidth - padding) / 2;
@@ -96,18 +96,18 @@ public class ScreenSpeedometerSettings extends GuiScreen
 		WidgetFluidGrid fluidGrid = new WidgetFluidGrid(this, padding, topY, width - padding * 2, gridHeight);
 
 		WidgetWrapper positionSettings = new WidgetWrapper(fluidGrid);
-		xField = new WidgetTextField(positionSettings, 0, fontRendererObj.FONT_HEIGHT + padding, halfColWidth, rowHeight);
+		xField = new WidgetTextField(positionSettings, 0, fontRenderer.FONT_HEIGHT + padding, halfColWidth, rowHeight);
 		new WidgetLabel(positionSettings, 0, 0, I18n.format("squeedometer.settings.x")).drawCentered = false;
-		yField = new WidgetTextField(positionSettings, halfColWidth + padding, fontRendererObj.FONT_HEIGHT + padding, halfColWidth, rowHeight);
+		yField = new WidgetTextField(positionSettings, halfColWidth + padding, fontRenderer.FONT_HEIGHT + padding, halfColWidth, rowHeight);
 		new WidgetLabel(positionSettings, halfColWidth + padding, 0, I18n.format("squeedometer.settings.y")).drawCentered = false;
 
 		WidgetWrapper layoutSettings = new WidgetWrapper(fluidGrid);
-		marginField = new WidgetTextField(layoutSettings, 0, fontRendererObj.FONT_HEIGHT + padding, halfColWidth, rowHeight);
+		marginField = new WidgetTextField(layoutSettings, 0, fontRenderer.FONT_HEIGHT + padding, halfColWidth, rowHeight);
 		new WidgetLabel(layoutSettings, 0, 0, I18n.format("squeedometer.settings.margin")).drawCentered = false;
-		paddingField = new WidgetTextField(layoutSettings, halfColWidth + padding, fontRendererObj.FONT_HEIGHT + padding, halfColWidth, rowHeight);
+		paddingField = new WidgetTextField(layoutSettings, halfColWidth + padding, fontRenderer.FONT_HEIGHT + padding, halfColWidth, rowHeight);
 		new WidgetLabel(layoutSettings, halfColWidth + padding, 0, I18n.format("squeedometer.settings.padding")).drawCentered = false;
 
-		int alignBoxTop = fontRendererObj.FONT_HEIGHT + padding;
+		int alignBoxTop = fontRenderer.FONT_HEIGHT + padding;
 		int alignBoxHeight = buttonHeight * 2 + 6;
 		alignmentSettings = new WidgetWrapper(fluidGrid);
 		new WidgetLabel(alignmentSettings, 0, 0, I18n.format("squeedometer.settings.screenalign")).drawCentered = false;
@@ -132,7 +132,7 @@ public class ScreenSpeedometerSettings extends GuiScreen
 		lastJumpFloatButton = new WidgetButton(jumpInfoButtons, 0, buttonHeight + padding, colWidth, buttonHeight, "");
 
 		WidgetWrapper precisionSettings = new WidgetWrapper(fluidGrid);
-		precisionField = new WidgetTextField(precisionSettings, 0, fontRendererObj.FONT_HEIGHT + padding, colWidth, rowHeight);
+		precisionField = new WidgetTextField(precisionSettings, 0, fontRenderer.FONT_HEIGHT + padding, colWidth, rowHeight);
 		new WidgetLabel(precisionSettings, 0, 0, I18n.format("squeedometer.settings.precision")).drawCentered = false;
 
 		if (!Loader.isModLoaded("Squake"))

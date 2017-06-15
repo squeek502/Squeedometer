@@ -6,13 +6,12 @@ import squeek.speedometer.gui.IGuiHierarchical;
 
 public class WidgetTextField extends WidgetBase
 {
-
 	protected GuiTextField textField;
 
 	public WidgetTextField(IGuiHierarchical parent, int x, int y, int w, int h)
 	{
 		super(parent, x, y, w, h);
-		this.textField = new GuiTextField(0, MC.fontRendererObj, getX(), getY(), getWidth(), getHeight());
+		this.textField = new GuiTextField(0, MC.fontRenderer, getX(), getY(), getWidth(), getHeight());
 	}
 
 	@Override
@@ -59,7 +58,7 @@ public class WidgetTextField extends WidgetBase
 			// seriously have to recreate the GuiTextField ...
 			if (this.textField != null)
 			{
-				this.textField = new GuiTextField(1, MC.fontRendererObj, x, y, w, h);
+				this.textField = new GuiTextField(1, MC.fontRenderer, x, y, w, h);
 			}
 		}
 		super.onGuiEvent(event, source, data);

@@ -74,5 +74,4 @@ public class WidgetButton extends WidgetBase
 	{
 		label.setText(text);
 	}
-
 }

@@ -16,7 +16,7 @@ public abstract class WidgetBase extends Gui implements IWidget, IGuiEventHandle
 	public int y = 0;
 	public int w = 0;
 	public int h = 0;
-	public List<IWidget> children = new ArrayList<IWidget>();
+	public List<IWidget> children = new ArrayList<>();
 	protected IGuiHierarchical parent = null;
 	protected final Minecraft MC = Minecraft.getMinecraft();
 	protected boolean visible = true;
@@ -232,7 +232,7 @@ public abstract class WidgetBase extends Gui implements IWidget, IGuiEventHandle
 	@Override
 	public List<String> getTooltip(int mouseX, int mouseY)
 	{
-		List<String> tooltip = new ArrayList<String>();
+		List<String> tooltip = new ArrayList<>();
 		if (this.tooltipString != null && isMouseInsideBounds(mouseX, mouseY))
 		{
 			tooltip.addAll(Arrays.asList(tooltipString.split(System.getProperty("line.separator"))));

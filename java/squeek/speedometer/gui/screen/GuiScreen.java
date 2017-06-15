@@ -14,8 +14,7 @@ import java.util.List;
 @SideOnly(Side.CLIENT)
 public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGuiHierarchical, IGuiEventHandler
 {
-
-	private final List<IWidget> CHILDREN = new ArrayList<IWidget>();
+	private static final List<IWidget> CHILDREN = new ArrayList<>();
 
 	@Override
 	public void initGui()
@@ -27,31 +26,31 @@ public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGu
 	@Override
 	public void addChild(IWidget child)
 	{
-		this.CHILDREN.add(child);
+		CHILDREN.add(child);
 	}
 
 	@Override
 	public boolean removeChild(IWidget child)
 	{
-		return this.CHILDREN.remove(child);
+		return CHILDREN.remove(child);
 	}
 
 	@Override
 	public void addChildren(List<IWidget> children)
 	{
-		this.CHILDREN.addAll(children);
+		CHILDREN.addAll(children);
 	}
 
 	@Override
 	public void removeChildren(List<IWidget> children)
 	{
-		this.CHILDREN.removeAll(children);
+		CHILDREN.removeAll(children);
 	}
 
 	@Override
 	public void clearChildren()
 	{
-		this.CHILDREN.clear();
+		CHILDREN.clear();
 	}
 
 	@Override
@@ -76,28 +75,28 @@ public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGu
 	{
 		super.drawScreen(mouseX, mouseY, partialTicks);
 
-		for (IWidget child : this.CHILDREN)
+		for (IWidget child : CHILDREN)
 		{
 			child.drawBackground(mouseX, mouseY);
 		}
 
-		for (IWidget child : this.CHILDREN)
+		for (IWidget child : CHILDREN)
 		{
 			child.draw(mouseX, mouseY);
 		}
 
-		for (IWidget child : this.CHILDREN)
+		for (IWidget child : CHILDREN)
 		{
 			child.drawForeground(mouseX, mouseY);
 		}
 
-		List<String> tooltip = new ArrayList<String>();
-		for (IWidget child : this.CHILDREN)
+		List<String> tooltip = new ArrayList<>();
+		for (IWidget child : CHILDREN)
 		{
 			tooltip.addAll(child.getTooltip(mouseX, mouseY));
 		}
 		if (!tooltip.isEmpty())
-			this.drawHoveringText(tooltip, mouseX, mouseY, fontRendererObj);
+			this.drawHoveringText(tooltip, mouseX, mouseY, fontRenderer);
 	}
 
 	@Override
@@ -105,7 +104,7 @@ public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGu
 	{
 		super.updateScreen();
 
-		for (IWidget child : this.CHILDREN)
+		for (IWidget child : CHILDREN)
 		{
 			child.update();
 		}
@@ -114,7 +113,7 @@ public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGu
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int type) throws IOException
 	{
-		for (IWidget child : this.CHILDREN)
+		for (IWidget child : CHILDREN)
 			child.mouseClicked(mouseX, mouseY, type, isShiftKeyDown());
 		super.mouseClicked(mouseX, mouseY, type);
 	}
@@ -122,7 +121,7 @@ public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGu
 	@Override
 	public void handleMouseInput() throws IOException
 	{
-		for (IWidget child : this.CHILDREN)
+		for (IWidget child : CHILDREN)
 			child.handleMouseInput();
 		super.handleMouseInput();
 	}
@@ -130,7 +129,7 @@ public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGu
 	@Override
 	protected void keyTyped(char c, int i) throws IOException
 	{
-		for (IWidget child : this.CHILDREN)
+		for (IWidget child : CHILDREN)
 		{
 			if (child.keyTyped(c, i))
 			{
@@ -160,5 +159,4 @@ public class GuiScreen extends net.minecraft.client.gui.GuiScreen implements IGu
 			((IGuiEventHandler) getParent()).onGuiEvent(event, null, data);
 		}
 	}
-
 }

@@ -9,7 +9,6 @@ import java.io.File;
 
 public class ModConfig
 {
-
 	public static final String CATEGORY_SPEEDOMETER = "speedometer";
 
 	public static Property SPEEDOMETER_ALIGNMENT_X;
