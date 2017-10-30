@@ -19,7 +19,7 @@ public class SpeedometerKeyHandler
 	@SubscribeEvent
 	public void onKeyEvent(KeyInputEvent event)
 	{
-		if (Keyboard.getEventKeyState() && Keyboard.getEventKey() == SETTINGS_KEY.getKeyCode())
+		if (SETTINGS_KEY.isPressed())
 		{
 			Minecraft mc = Minecraft.getMinecraft();
 
